@@ -14,34 +14,34 @@ public class RoundJudgeTest {
         roundJudge = RoundJudge.getInstance();
     }
 
-    private void assertLosingJudgement(RoundJudge.Hand loser, RoundJudge.Hand winner) {
+    private void assertLosingJudgement(RoundJudge.Shape loser, RoundJudge.Shape winner) {
         assertThat(roundJudge.judge(loser, winner), is(equalTo(-1)));
     }
 
-    private void assertWinningJudgement(RoundJudge.Hand winner, RoundJudge.Hand loser) {
+    private void assertWinningJudgement(RoundJudge.Shape winner, RoundJudge.Shape loser) {
         assertThat(roundJudge.judge(winner, loser), is(equalTo(1)));
     }
 
     @Test
-    public void givenTwoHand_ScoreShouldStayEqual() throws Exception {
-        assertThat(roundJudge.judge(RoundJudge.Hand.PAPER, RoundJudge.Hand.PAPER), is(equalTo(0)));
+    public void givenTwoShape_ScoreShouldStayEqual() throws Exception {
+        assertThat(roundJudge.judge(RoundJudge.Shape.PAPER, RoundJudge.Shape.PAPER), is(equalTo(0)));
     }
 
     @Test
     public void givenPaperAndScissor_ScissorShouldWin() throws Exception {
-        assertLosingJudgement(RoundJudge.Hand.PAPER, RoundJudge.Hand.SCISSORS);
-        assertWinningJudgement(RoundJudge.Hand.SCISSORS, RoundJudge.Hand.PAPER);
+        assertLosingJudgement(RoundJudge.Shape.PAPER, RoundJudge.Shape.SCISSORS);
+        assertWinningJudgement(RoundJudge.Shape.SCISSORS, RoundJudge.Shape.PAPER);
     }
 
     @Test
     public void givenPaperAndRock_PaperShouldWin() throws Exception {
-        assertWinningJudgement(RoundJudge.Hand.PAPER, RoundJudge.Hand.ROCK);
-        assertLosingJudgement(RoundJudge.Hand.ROCK, RoundJudge.Hand.PAPER);
+        assertWinningJudgement(RoundJudge.Shape.PAPER, RoundJudge.Shape.ROCK);
+        assertLosingJudgement(RoundJudge.Shape.ROCK, RoundJudge.Shape.PAPER);
     }
 
     @Test
     public void givenScissorAndRock_RockShouldWin() throws Exception {
-        assertLosingJudgement(RoundJudge.Hand.SCISSORS, RoundJudge.Hand.ROCK);
-        assertWinningJudgement(RoundJudge.Hand.ROCK, RoundJudge.Hand.SCISSORS);
+        assertLosingJudgement(RoundJudge.Shape.SCISSORS, RoundJudge.Shape.ROCK);
+        assertWinningJudgement(RoundJudge.Shape.ROCK, RoundJudge.Shape.SCISSORS);
     }
 }

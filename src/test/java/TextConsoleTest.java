@@ -9,25 +9,25 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class TextConsoleTest {
 
     @Test
-    public void askNextHand_ShouldRepeatUntilAValidToken() throws Exception {
+    public void askNextShape_ShouldRepeatUntilAValidShape() throws Exception {
        Console console = new TextConsole(new Scanner("Ro\nkashk\nrashk\nrock\n"));
-       final RoundJudge.Hand hand = console.askNext();
-        assertThat(hand, is(equalTo(RoundJudge.Hand.ROCK)));
+       final RoundJudge.Shape shape = console.askNext();
+        assertThat(shape, is(equalTo(RoundJudge.Shape.ROCK)));
     }
 
     @Test
-    public void GivenCorrectTokens_ItShouldReturnThatToken() throws Exception {
-        for (RoundJudge.Hand hand : RoundJudge.Hand.values()) {
-            Console console = new TextConsole(new Scanner(hand.toString()));
-            assertThat(hand, is(equalTo(console.askNext())));
+    public void GivenCorrectShape_askNextItShouldReturnThatShape() throws Exception {
+        for (RoundJudge.Shape shape : RoundJudge.Shape.values()) {
+            Console console = new TextConsole(new Scanner(shape.toString()));
+            assertThat(shape, is(equalTo(console.askNext())));
         }
     }
 
     @Test
     public void caseInsensitiveInputsAreAccepted() {
-        for (RoundJudge.Hand hand : RoundJudge.Hand.values()) {
-            Console console = new TextConsole(new Scanner(hand.toString().toLowerCase()));
-            assertThat(hand, is(equalTo(console.askNext())));
+        for (RoundJudge.Shape shape : RoundJudge.Shape.values()) {
+            Console console = new TextConsole(new Scanner(shape.toString().toLowerCase()));
+            assertThat(shape, is(equalTo(console.askNext())));
         }
     }
 }

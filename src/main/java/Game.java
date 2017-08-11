@@ -2,23 +2,18 @@ import java.util.Scanner;
 
 public class Game {
     private final Console textConsole = new TextConsole(new Scanner(System.in));
-    private RoundJudge roundJudge;
 
-    public Game() {
-        roundJudge = RoundJudge.getInstance();
-    }
-
-    public RoundJudge.Hand askNext() {
+    public RoundJudge.Shape askNext() {
         return textConsole.askNext();
     }
 
-    public RoundJudge.Hand guess() {
+    public RoundJudge.Shape guess() {
         RandomGuesser guesser = new RandomGuesser();
         return guesser.nextGuess();
     }
 
-    public int score(RoundJudge.Hand first, RoundJudge.Hand second) {
-        return roundJudge.judge(first, second);
+    public int score(RoundJudge.Shape first, RoundJudge.Shape second) {
+        return RoundJudge.getInstance().judge(first, second);
     }
 
     public void annouceWinner(int score) {
@@ -29,8 +24,8 @@ public class Game {
         Game game = new Game();
         int n = 10;
         while (n > 0) {
-            RoundJudge.Hand randomGuess = game.guess();
-            RoundJudge.Hand userGuess = game.askNext();
+            RoundJudge.Shape randomGuess = game.guess();
+            RoundJudge.Shape userGuess = game.askNext();
             System.out.println("Comparing " + randomGuess + ", " + userGuess);
             final int score = game.score(randomGuess, userGuess);
             System.out.println(score);

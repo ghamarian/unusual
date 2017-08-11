@@ -1,3 +1,3 @@
 public interface Guesser {
-    RoundJudge.Hand nextGuess();
+    RoundJudge.Shape nextGuess();
 }

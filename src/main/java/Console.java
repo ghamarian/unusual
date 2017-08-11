@@ -1,5 +1,5 @@
 public interface Console {
-    RoundJudge.Hand askNext();
+    RoundJudge.Shape askNext();
 
     void annouceWinner(int score);
 }
