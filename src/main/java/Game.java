@@ -1,30 +1,15 @@
-import java.util.Arrays;
 import java.util.Scanner;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
 public class Game {
-    private Scanner scanner;
-    private Pattern pattern;
+    private final Console textConsole = new TextConsole(new Scanner(System.in));
     private RoundJudge roundJudge;
 
     public Game() {
-        pattern = Pattern.compile(Arrays.stream(RoundJudge.Hand.values()).map(Object::toString).collect(Collectors.joining("|")), Pattern.CASE_INSENSITIVE);
-        scanner = new Scanner(System.in);
         roundJudge = RoundJudge.getInstance();
     }
 
     public RoundJudge.Hand askNext() {
-        System.out.println("Please enter your guess: [Paper, Scissors or Rock]: ");
-        String next = scanner.next().toUpperCase();
-        Matcher matcher = pattern.matcher(next);
-        while (!matcher.find()) {
-            System.out.println("Please enter your guess: [Paper, Scissors or Rock]: ");
-            next = scanner.next().toUpperCase();
-            matcher = pattern.matcher(next);
-        }
-        return RoundJudge.Hand.valueOf(matcher.group());
+        return textConsole.askNext();
     }
 
     public RoundJudge.Hand guess() {
@@ -37,15 +22,7 @@ public class Game {
     }
 
     public void annouceWinner(int score) {
-        if (score > 0) {
-            System.out.println("You lost the last round");
-        }
-        else if (score < 0) {
-            System.out.println("You won the last round");
-        }
-        else {
-            System.out.println("It was a draw!");
-        }
+        textConsole.annouceWinner(score);
     }
 
     public static void main(String[] args) {

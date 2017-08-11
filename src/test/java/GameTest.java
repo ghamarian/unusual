@@ -1,9 +1,11 @@
+import org.junit.Before;
 import org.junit.Test;
 
 public class GameTest {
 
-    @Test
-    public void score() throws Exception {
-
+    @Before
+    public void setUp() throws Exception {
+        Game game = new  Game();
     }
+
 }
