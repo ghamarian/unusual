@@ -5,11 +5,11 @@ import java.util.Random;
 
 public class RandomGuesser implements Guesser {
 
-    private static final List<RoundJudge.Shape> SHAPES = Collections.unmodifiableList(Arrays.asList(RoundJudge.Shape.values()));
+    private static final List<Shape> SHAPES = Collections.unmodifiableList(Arrays.asList(Shape.values()));
     private static final Random random = new Random();
 
     @Override
-    public RoundJudge.Shape nextGuess() {
+    public Shape nextGuess() {
         return SHAPES.get(random.nextInt(SHAPES.size()));
     }
 }

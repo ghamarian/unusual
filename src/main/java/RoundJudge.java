@@ -1,25 +1,5 @@
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
-
 public class RoundJudge {
     private static RoundJudge instance;
-
-    enum Shape {
-        ROCK,
-        PAPER,
-        SCISSORS;
-
-        Set<Shape> winsAgainstSet = new HashSet<>();
-
-        public void setup(Shape... shapes) {
-            winsAgainstSet.addAll(Arrays.asList(shapes));
-        }
-
-        public boolean winsAgainst(Shape shape) {
-            return winsAgainstSet.contains(shape);
-        }
-    }
 
     private RoundJudge(){
         Shape.ROCK.setup(Shape.SCISSORS);

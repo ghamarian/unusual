@@ -2,35 +2,44 @@ import java.util.Scanner;
 
 public class Game {
     private final Console textConsole = new TextConsole(new Scanner(System.in));
+    private final RandomGuesser guesser;
 
-    public RoundJudge.Shape askNext() {
+    Game() {
+        guesser = new RandomGuesser();
+    }
+
+    private Shape askNext() {
         return textConsole.askNext();
     }
 
-    public RoundJudge.Shape guess() {
-        RandomGuesser guesser = new RandomGuesser();
+    private Shape guess() {
         return guesser.nextGuess();
     }
 
-    public int score(RoundJudge.Shape first, RoundJudge.Shape second) {
+    private int score(Shape first, Shape second) {
         return RoundJudge.getInstance().judge(first, second);
     }
 
-    public void annouceWinner(int score) {
+    private void annouceWinner(int score) {
         textConsole.annouceWinner(score);
+    }
+
+    public void play() {
+        int n = 10;
+        while (n > 0) {
+            Shape randomGuess = guess();
+            Shape userGuess = askNext();
+
+            System.out.println("Comparing " + randomGuess + ", " + userGuess);
+            final int score = score(randomGuess, userGuess);
+            System.out.println(score);
+            annouceWinner(score);
+            n--;
+        }
     }
 
     public static void main(String[] args) {
         Game game = new Game();
-        int n = 10;
-        while (n > 0) {
-            RoundJudge.Shape randomGuess = game.guess();
-            RoundJudge.Shape userGuess = game.askNext();
-            System.out.println("Comparing " + randomGuess + ", " + userGuess);
-            final int score = game.score(randomGuess, userGuess);
-            System.out.println(score);
-            game.annouceWinner(score);
-            n--;
-        }
+        game.play();
     }
 }

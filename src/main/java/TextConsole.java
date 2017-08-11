@@ -10,11 +10,11 @@ public class TextConsole implements Console {
 
     public TextConsole(Scanner scanner) {
         this.scanner = scanner;
-        this.pattern = Pattern.compile(Arrays.stream(RoundJudge.Shape.values()).map(Object::toString).collect(Collectors.joining("|")), Pattern.CASE_INSENSITIVE);
+        this.pattern = Pattern.compile(Arrays.stream(Shape.values()).map(Object::toString).collect(Collectors.joining("|")), Pattern.CASE_INSENSITIVE);
     }
 
     @Override
-    public RoundJudge.Shape askNext() {
+    public Shape askNext() {
         System.out.println("Please enter your guess: [Paper, Scissors or Rock]: ");
         String next = getNextToken().toUpperCase();
         Matcher matcher = pattern.matcher(next);
@@ -23,7 +23,7 @@ public class TextConsole implements Console {
             next = getNextToken().toUpperCase();
             matcher = pattern.matcher(next);
         }
-        return RoundJudge.Shape.valueOf(matcher.group());
+        return Shape.valueOf(matcher.group());
     }
 
     protected String getNextToken() {

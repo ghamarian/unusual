@@ -14,34 +14,34 @@ public class RoundJudgeTest {
         roundJudge = RoundJudge.getInstance();
     }
 
-    private void assertLosingJudgement(RoundJudge.Shape loser, RoundJudge.Shape winner) {
+    private void assertLosingJudgement(Shape loser, Shape winner) {
         assertThat(roundJudge.judge(loser, winner), is(equalTo(-1)));
     }
 
-    private void assertWinningJudgement(RoundJudge.Shape winner, RoundJudge.Shape loser) {
+    private void assertWinningJudgement(Shape winner, Shape loser) {
         assertThat(roundJudge.judge(winner, loser), is(equalTo(1)));
     }
 
     @Test
     public void givenTwoShape_ScoreShouldStayEqual() throws Exception {
-        assertThat(roundJudge.judge(RoundJudge.Shape.PAPER, RoundJudge.Shape.PAPER), is(equalTo(0)));
+        assertThat(roundJudge.judge(Shape.PAPER, Shape.PAPER), is(equalTo(0)));
     }
 
     @Test
     public void givenPaperAndScissor_ScissorShouldWin() throws Exception {
-        assertLosingJudgement(RoundJudge.Shape.PAPER, RoundJudge.Shape.SCISSORS);
-        assertWinningJudgement(RoundJudge.Shape.SCISSORS, RoundJudge.Shape.PAPER);
+        assertLosingJudgement(Shape.PAPER, Shape.SCISSORS);
+        assertWinningJudgement(Shape.SCISSORS, Shape.PAPER);
     }
 
     @Test
     public void givenPaperAndRock_PaperShouldWin() throws Exception {
-        assertWinningJudgement(RoundJudge.Shape.PAPER, RoundJudge.Shape.ROCK);
-        assertLosingJudgement(RoundJudge.Shape.ROCK, RoundJudge.Shape.PAPER);
+        assertWinningJudgement(Shape.PAPER, Shape.ROCK);
+        assertLosingJudgement(Shape.ROCK, Shape.PAPER);
     }
 
     @Test
     public void givenScissorAndRock_RockShouldWin() throws Exception {
-        assertLosingJudgement(RoundJudge.Shape.SCISSORS, RoundJudge.Shape.ROCK);
-        assertWinningJudgement(RoundJudge.Shape.ROCK, RoundJudge.Shape.SCISSORS);
+        assertLosingJudgement(Shape.SCISSORS, Shape.ROCK);
+        assertWinningJudgement(Shape.ROCK, Shape.SCISSORS);
     }
 }
