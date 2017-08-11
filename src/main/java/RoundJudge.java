@@ -3,26 +3,35 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class RoundJudge {
-//    enum Hand {
-//        ROCK {
-//            Set<Hand> winsAgainstSet = new HashSet<>();
-//
-//
-//        },
-//        PAPER,
-//        SCISSOR;
-//
-//        Set<Hand> winsAgainstSet = new HashSet<>();
-//
-//        public boolean winsAgainst(Hand other) {
-//            return winsAgainstSet.contains(other);
-//        }
-//    }
+    public static RoundJudge instance;
 
-//    private static final int size = Hand.values().length;
+    enum Hand {
+        ROCK,
+        PAPER,
+        SCISSORS;
 
-//    private int[][] rules = new int[size][size];
+        Set<Hand> winsAgainstSet = new HashSet<>();
+        public void setup(Hand... hands) {
+            winsAgainstSet.addAll(Arrays.asList(hands));
+        }
 
+        public boolean winsAgainst(Hand hand) {
+            return winsAgainstSet.contains(hand);
+        }
+    }
+
+    private RoundJudge(){
+        Hand.ROCK.setup(Hand.SCISSORS);
+        Hand.PAPER.setup(Hand.ROCK);
+        Hand.SCISSORS.setup(Hand.PAPER);
+    }
+
+    public static RoundJudge getInstance() {
+        if (instance == null) {
+            instance = new RoundJudge();
+        }
+        return instance;
+    }
 
     int judge(Hand first, Hand second) {
         if (first == second) {
