@@ -9,10 +9,12 @@ public class Game {
         guesser = new RandomGuesser();
     }
 
+    //should I keep this method?
     private Shape askNext() {
         return textConsole.askNext();
     }
 
+    //should I keep this method?
     private Shape guess() {
         return guesser.nextGuess();
     }
@@ -21,6 +23,7 @@ public class Game {
         return RoundJudge.getInstance().judge(first, second);
     }
 
+    //should I keep this method?
     private void annouceWinner(int score) {
         textConsole.annouceWinner(score);
     }
@@ -39,7 +42,9 @@ public class Game {
             annouceWinner(score);
             n--;
         }
+        textConsole.announceGameOver();
     }
+
 
     public static void main(String[] args) {
         Game game = new Game();

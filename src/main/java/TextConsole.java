@@ -60,4 +60,9 @@ public class TextConsole implements Console {
     protected String getNextToken() {
         return scanner.next();
     }
+
+    @Override
+    public void announceGameOver() {
+        System.out.println("Game Over.");
+    }
 }

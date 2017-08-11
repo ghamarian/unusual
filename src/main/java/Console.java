@@ -11,4 +11,6 @@ public interface Console {
     int getHowManyRounds();
 
     void promptUserForNumberOfRounds();
+
+    void announceGameOver();
 }
