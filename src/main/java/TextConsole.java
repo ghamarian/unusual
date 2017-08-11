@@ -46,7 +46,18 @@ public class TextConsole implements Console {
         System.out.println(String.format("You %s the last round", lastGameResult));
     }
 
-    private String getNextToken() {
+    @Override
+    public int getHowManyRounds() {
+        promptUserForNumberOfRounds();
+        return scanner.nextInt();
+    }
+
+    @Override
+    public void promptUserForNumberOfRounds() {
+        System.out.println("Please enter how many rounds would you like to play?");
+    }
+
+    protected String getNextToken() {
         return scanner.next();
     }
 }

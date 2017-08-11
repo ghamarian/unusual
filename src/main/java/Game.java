@@ -29,7 +29,7 @@ public class Game {
     //keep the scores.
     //change the score from an int to something more useful.
     public void play() {
-        int n = 10;
+        int n = textConsole.getHowManyRounds();
         while (n > 0) {
             Shape computerNextGuess = guess();
             Shape userGuess = askNext();

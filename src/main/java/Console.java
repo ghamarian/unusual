@@ -7,4 +7,8 @@ public interface Console {
     void annouceWinner(int score);
 
     void announceLastRound(String lastGameResult);
+
+    int getHowManyRounds();
+
+    void promptUserForNumberOfRounds();
 }
