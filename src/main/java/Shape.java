@@ -7,13 +7,13 @@ enum Shape {
     PAPER,
     SCISSORS;
 
-    Set<Shape> winsAgainstSet = new HashSet<>();
+    Set<Shape> weakerShapes = new HashSet<>();
 
-    public void setup(Shape... shapes) {
-        winsAgainstSet.addAll(Arrays.asList(shapes));
+    public void setWeakerShapes(Shape... shapes) {
+        weakerShapes.addAll(Arrays.asList(shapes));
     }
 
     public boolean winsAgainst(Shape shape) {
-        return winsAgainstSet.contains(shape);
+        return weakerShapes.contains(shape);
     }
 }

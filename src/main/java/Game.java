@@ -1,5 +1,6 @@
 import java.util.Scanner;
 
+//template pattern?
 public class Game {
     private final Console textConsole = new TextConsole(new Scanner(System.in));
     private final RandomGuesser guesser;
@@ -24,15 +25,17 @@ public class Game {
         textConsole.annouceWinner(score);
     }
 
+    //write tests for this.
+    //keep the scores.
+    //change the score from an int to something more useful.
     public void play() {
         int n = 10;
         while (n > 0) {
-            Shape randomGuess = guess();
+            Shape computerNextGuess = guess();
             Shape userGuess = askNext();
 
-            System.out.println("Comparing " + randomGuess + ", " + userGuess);
-            final int score = score(randomGuess, userGuess);
-            System.out.println(score);
+            System.out.println(String.format("Your guess %s vs %s", userGuess, computerNextGuess));
+            final int score = score(computerNextGuess, userGuess);
             annouceWinner(score);
             n--;
         }

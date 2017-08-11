@@ -2,9 +2,9 @@ public class RoundJudge {
     private static RoundJudge instance;
 
     private RoundJudge(){
-        Shape.ROCK.setup(Shape.SCISSORS);
-        Shape.PAPER.setup(Shape.ROCK);
-        Shape.SCISSORS.setup(Shape.PAPER);
+        Shape.ROCK.setWeakerShapes(Shape.SCISSORS);
+        Shape.PAPER.setWeakerShapes(Shape.ROCK);
+        Shape.SCISSORS.setWeakerShapes(Shape.PAPER);
     }
 
     public static RoundJudge getInstance() {

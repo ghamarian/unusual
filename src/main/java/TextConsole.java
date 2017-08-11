@@ -8,36 +8,45 @@ public class TextConsole implements Console {
     private Scanner scanner;
     private Pattern pattern;
 
-    public TextConsole(Scanner scanner) {
+    TextConsole(Scanner scanner) {
         this.scanner = scanner;
         this.pattern = Pattern.compile(Arrays.stream(Shape.values()).map(Object::toString).collect(Collectors.joining("|")), Pattern.CASE_INSENSITIVE);
     }
 
     @Override
     public Shape askNext() {
-        System.out.println("Please enter your guess: [Paper, Scissors or Rock]: ");
-        String next = getNextToken().toUpperCase();
-        Matcher matcher = pattern.matcher(next);
-        while (!matcher.find()) {
-            System.out.println("Please enter your guess: [Paper, Scissors or Rock]: ");
-            next = getNextToken().toUpperCase();
+        Matcher matcher;
+        do {
+            promptNextInput();
+            String next = getNextToken().toUpperCase();
             matcher = pattern.matcher(next);
         }
+        while (!matcher.matches());
         return Shape.valueOf(matcher.group());
     }
 
-    protected String getNextToken() {
-        return scanner.next();
+    @Override
+    public void promptNextInput() {
+        System.out.println("Please enter your guess: " + Arrays.toString(Shape.values()));
     }
 
     @Override
     public void annouceWinner(int score) {
         if (score > 0) {
-            System.out.println("You lost the last round");
+            announceLastRound("lost");
         } else if (score < 0) {
-            System.out.println("You won the last round");
+            announceLastRound("won");
         } else {
             System.out.println("It was a draw!");
         }
+    }
+
+    @Override
+    public void announceLastRound(String lastGameResult) {
+        System.out.println(String.format("You %s the last round", lastGameResult));
+    }
+
+    private String getNextToken() {
+        return scanner.next();
     }
 }
