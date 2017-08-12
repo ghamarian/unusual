@@ -16,7 +16,7 @@ import static org.mockito.MockitoAnnotations.initMocks;
 public class GameEngineTest {
 
     @Mock
-    Guesser guesser;
+    private Guesser guesser;
 
     @Before
     public void setUp() throws Exception {

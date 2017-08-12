@@ -16,11 +16,11 @@ public class GameEngine {
         scoreboard = new Scoreboard();
     }
 
-    private Shape askNext() {
+    private Shape askNextShape() {
         return console.askNextShape();
     }
 
-    private Shape guess() {
+    private Shape guessShape() {
         return guesser.nextGuess();
     }
 
@@ -28,7 +28,7 @@ public class GameEngine {
         return judge.judge(userShape, computerShape);
     }
 
-    private void announceLastLevelWinner(Winner winner) {
+    private void announceLastRoundWinner(Winner winner) {
         console.annouceLastRoundWinner(winner);
     }
 
@@ -37,8 +37,8 @@ public class GameEngine {
         gameOver = false;
 
         while (!gameOver()) {
-            Shape computerGuess = guess();
-            Shape userGuess = askNext();
+            Shape computerGuess = guessShape();
+            Shape userGuess = askNextShape();
 
             if (userGuess == Shape.QUIT) {
                 gameOver = true;
@@ -47,7 +47,8 @@ public class GameEngine {
 
             annouceGuesses(computerGuess, userGuess);
             final Winner winner = findWinner(userGuess, computerGuess);
-            announceLastLevelWinner(winner);
+            announceLastRoundWinner(winner);
+
             scoreboard.saveRoundResult(winner);
         }
         console.announceGameOver(scoreboard);

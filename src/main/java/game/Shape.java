@@ -9,17 +9,18 @@ public enum Shape {
     SCISSORS,
     QUIT;
 
-    Set<Shape> weakerShapes = new HashSet<>();
+    private Set<Shape> looserShapes = new HashSet<>();
 
-    public void setWeakerShapes(Shape... shapes) {
-        weakerShapes.addAll(Arrays.asList(shapes));
+    void setLooserShapes(Shape... shapes) {
+        looserShapes.addAll(Arrays.asList(shapes));
     }
 
     boolean winsAgainst(Shape shape) {
-        return weakerShapes.contains(shape);
+        return looserShapes.contains(shape);
     }
 
     public static List<Shape> shapes() {
         return Arrays.stream(Shape.values()).filter(x -> x != QUIT).collect(Collectors.toList());
     }
+
 }

@@ -92,6 +92,7 @@ public class TextConsole implements Console {
         else {
             announceLostMatch();
         }
+
         announceFinalScores(userScore, computerScore);
         announceNumberOfRuncs(scoreboard.numberOfRounds());
     }

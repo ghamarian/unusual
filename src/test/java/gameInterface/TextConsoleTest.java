@@ -17,7 +17,7 @@ public class TextConsoleTest {
 
     @Test
     public void askNextShape_ShouldRepeatUntilAValidShape() throws Exception {
-       Console console = new TextConsole(new Scanner("Ro\nkashk\nrashk\nrock\n"));
+       Console console = new TextConsole(new Scanner("aa\nabcd\nkashk\nrock\n"));
        final Shape shape = console.askNextShape();
         assertThat(shape, is(equalTo(Shape.ROCK)));
     }
