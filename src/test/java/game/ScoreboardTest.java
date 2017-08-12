@@ -12,7 +12,7 @@ import static org.junit.Assert.assertThat;
 public class ScoreboardTest {
 
     @Test
-    public void getUserScore() throws Exception {
+    public void givenRandomlyGeneratedScoreboard_countsAddUpToTheTotalSum() throws Exception {
         Scoreboard scoreboard = new Scoreboard();
         Guesser guesser = new RandomGuesser();
         RoundJudge judge = new RoundJudge();

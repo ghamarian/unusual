@@ -2,9 +2,7 @@ package game;
 
 public interface Console {
 
-    Shape askNext();
-
-    void promptNextInput();
+    Shape askNextShape();
 
     void annouceLastRoundWinner(Winner winner);
 

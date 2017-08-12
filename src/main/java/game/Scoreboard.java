@@ -44,6 +44,7 @@ public class Scoreboard {
         } else return (userScore > computerScore) ? Winner.USER : Winner.COMPUTER;
     }
 
+    //for testing
     long getUserScoreloop() {
         long userWins = 0;
         for (Winner winner : history) {

@@ -18,14 +18,14 @@ public class TextConsoleTest {
     @Test
     public void askNextShape_ShouldRepeatUntilAValidShape() throws Exception {
        Console console = new TextConsole(new Scanner("Ro\nkashk\nrashk\nrock\n"));
-       final Shape shape = console.askNext();
+       final Shape shape = console.askNextShape();
         assertThat(shape, is(equalTo(Shape.ROCK)));
     }
 
     @Test
     public void askNextChape_shouldMatchExactWord() throws Exception {
         Console console = new TextConsole(new Scanner("asrocks\npaper\n"));
-        final Shape shape = console.askNext();
+        final Shape shape = console.askNextShape();
         assertThat(shape, is(equalTo(Shape.PAPER)));
     }
 
@@ -33,7 +33,7 @@ public class TextConsoleTest {
     public void GivenCorrectShape_askNextItShouldReturnThatShape() throws Exception {
         for (Shape shape : Shape.values()) {
             Console console = new TextConsole(new Scanner(shape.toString()));
-            assertThat(shape, is(equalTo(console.askNext())));
+            assertThat(shape, is(equalTo(console.askNextShape())));
         }
     }
 
@@ -41,7 +41,7 @@ public class TextConsoleTest {
     public void caseInsensitiveInputsAreAccepted() {
         for (Shape shape : Shape.values()) {
             Console console = new TextConsole(new Scanner(shape.toString().toLowerCase()));
-            assertThat(shape, is(equalTo(console.askNext())));
+            assertThat(shape, is(equalTo(console.askNextShape())));
         }
     }
 

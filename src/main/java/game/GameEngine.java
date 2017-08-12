@@ -17,7 +17,7 @@ public class GameEngine {
     }
 
     private Shape askNext() {
-        return console.askNext();
+        return console.askNextShape();
     }
 
     private Shape guess() {

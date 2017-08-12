@@ -21,7 +21,7 @@ public class TextConsole implements Console {
     }
 
     @Override
-    public Shape askNext() {
+    public Shape askNextShape() {
         Matcher matcher;
         do {
             promptNextInput();
@@ -32,8 +32,7 @@ public class TextConsole implements Console {
         return Shape.valueOf(matcher.group());
     }
 
-    @Override
-    public void promptNextInput() {
+    private void promptNextInput() {
         System.out.println("Please enter your guess: " + Arrays.toString(Shape.values()));
     }
 

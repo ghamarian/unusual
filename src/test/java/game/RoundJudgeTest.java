@@ -16,12 +16,12 @@ public class RoundJudgeTest {
         roundJudge = new RoundJudge();
     }
 
-    private void assertUserLoses(Shape loser, Shape winner) {
-        assertThat(roundJudge.judge(loser, winner), is(equalTo(Winner.COMPUTER)));
+    private void assertUserLoses(Shape user, Shape computer) {
+        assertThat(roundJudge.judge(user, computer), is(equalTo(Winner.COMPUTER)));
     }
 
-    private void assertUserWins(Shape winner, Shape loser) {
-        assertThat(roundJudge.judge(winner, loser), is(equalTo(Winner.USER)));
+    private void assertUserWins(Shape user, Shape computer) {
+        assertThat(roundJudge.judge(user, computer), is(equalTo(Winner.USER)));
     }
 
     @Test
