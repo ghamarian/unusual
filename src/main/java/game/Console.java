@@ -6,7 +6,7 @@ public interface Console {
 
     void promptNextInput();
 
-    void annouceLastRoundWinner(Score score);
+    void annouceLastRoundWinner(RoundWinner roundWinner);
 
     int getHowManyRounds();
 

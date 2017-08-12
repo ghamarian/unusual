@@ -1,7 +1,7 @@
 package gameInterface;
 
 import game.Console;
-import game.Score;
+import game.RoundWinner;
 import game.Scoreboard;
 import game.Shape;
 
@@ -39,11 +39,11 @@ public class TextConsole implements Console {
 
     //TODO: make string values constant
     @Override
-    public void annouceLastRoundWinner(Score score) {
-        if (score == Score.LOST) {
-            promptRoundResult("lost");
-        } else if (score == Score.WON) {
+    public void annouceLastRoundWinner(RoundWinner roundWinner) {
+        if (roundWinner == RoundWinner.USER) {
             promptRoundResult("won");
+        } else if (roundWinner == RoundWinner.COMPUTER) {
+            promptRoundResult("lost");
         } else {
             System.out.println("It was a draw!");
         }

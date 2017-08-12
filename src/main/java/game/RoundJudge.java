@@ -8,7 +8,7 @@ class RoundJudge {
         Shape.SCISSORS.setWeakerShapes(Shape.PAPER);
     }
 
-    Score judge(Shape first, Shape second) {
+    RoundWinner judge(Shape first, Shape second) {
         return first.winsAgainst(second);
     }
 }

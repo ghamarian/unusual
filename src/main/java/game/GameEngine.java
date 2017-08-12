@@ -23,12 +23,12 @@ public class GameEngine {
         return guesser.nextGuess();
     }
 
-    private Score score(Shape first, Shape second) {
+    private RoundWinner score(Shape first, Shape second) {
         return judge.judge(first, second);
     }
 
-    private void announceLastLevelWinner(Score score) {
-        console.annouceLastRoundWinner(score);
+    private void announceLastLevelWinner(RoundWinner roundWinner) {
+        console.annouceLastRoundWinner(roundWinner);
     }
 
     //write tests for this.
@@ -48,9 +48,9 @@ public class GameEngine {
 
             annouceGuesses(computerGuess, userGuess);
 
-            final Score score = score(userGuess, computerGuess);
-            scoreboard.saveScore(score, userGuess, computerGuess);
-            announceLastLevelWinner(score);
+            final RoundWinner roundWinner = score(userGuess, computerGuess);
+            scoreboard.saveScore(roundWinner);
+            announceLastLevelWinner(roundWinner);
             numberOfRounds--;
         }
         console.announceGameOver(scoreboard);

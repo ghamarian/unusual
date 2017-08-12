@@ -15,11 +15,11 @@ public enum Shape {
         weakerShapes.addAll(Arrays.asList(shapes));
     }
 
-    public Score winsAgainst(Shape shape) {
+    public RoundWinner winsAgainst(Shape shape) {
         if (this == shape){
-           return Score.DRAW;
+           return RoundWinner.DRAW;
         }
-        return weakerShapes.contains(shape) ? Score.WON : Score.LOST;
+        return weakerShapes.contains(shape) ? RoundWinner.USER : RoundWinner.COMPUTER;
     }
 
     public static List<Shape> shapes() {

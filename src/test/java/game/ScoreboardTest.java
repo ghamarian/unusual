@@ -1,9 +1,5 @@
 package game;
 
-import game.Guesser;
-import game.RoundJudge;
-import game.Scoreboard;
-import game.Shape;
 import org.junit.Test;
 import strategy.RandomGuesser;
 
@@ -11,7 +7,7 @@ import java.util.Random;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertThat;
 
 public class ScoreboardTest {
 
@@ -34,7 +30,7 @@ public class ScoreboardTest {
         for (int i = 0; i < random.nextInt(10); i++) {
             final Shape userGuess = guesser.nextGuess();
             final Shape computerGuess = guesser.nextGuess();
-            scoreboard.saveScore(judge.judge(userGuess, computerGuess), userGuess, computerGuess);
+            scoreboard.saveScore(judge.judge(userGuess, computerGuess));
         }
     }
 
