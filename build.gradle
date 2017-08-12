@@ -2,8 +2,16 @@ group 'game'
 version '1.0-SNAPSHOT'
 
 apply plugin: 'java'
+apply plugin: 'application'
 
 sourceCompatibility = 1.8
+
+mainClassName = "Game"
+
+run {
+    standardInput = System.in
+}
+
 
 repositories {
     mavenCentral()

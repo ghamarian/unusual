@@ -1,6 +1,7 @@
 import java.util.*;
+import java.util.stream.Collectors;
 
-enum Shape {
+public enum Shape {
     ROCK,
     PAPER,
     SCISSORS,
@@ -20,8 +21,6 @@ enum Shape {
     }
 
     public static List<Shape> shapes() {
-        List<Shape> allShapes = new ArrayList<>(Arrays.asList(Shape.values()));
-        allShapes.remove(Shape.QUIT);
-        return Collections.unmodifiableList(allShapes);
+        return Arrays.stream(Shape.values()).filter(x -> x != QUIT).collect(Collectors.toList());
     }
 }

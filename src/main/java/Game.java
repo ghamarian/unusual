@@ -30,6 +30,7 @@ public class Game {
     }
 
     //write tests for this.
+    //make it testable.
     public void play() {
         int numberOfRounds = console.getHowManyRounds();
         boolean gameOver = false;

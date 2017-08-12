@@ -30,6 +30,7 @@ public class TextConsole implements Console {
         System.out.println("Please enter your guess: " + Arrays.toString(Shape.values()));
     }
 
+    //TODO: make string values constant
     @Override
     public void annouceLastRoundWinner(Score score) {
         if (score == Score.LOST) {
