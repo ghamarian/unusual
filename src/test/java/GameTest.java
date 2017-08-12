@@ -8,4 +8,8 @@ public class GameTest {
         Game game = new  Game();
     }
 
+    @Test
+    public void play() throws Exception {
+
+    }
 }

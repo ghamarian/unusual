@@ -31,18 +31,17 @@ public class TextConsole implements Console {
     }
 
     @Override
-    public void annouceWinner(int score) {
-        if (score > 0) {
-            announceLastRound("lost");
-        } else if (score < 0) {
-            announceLastRound("won");
+    public void annouceLastRoundWinner(Score score) {
+        if (score == Score.LOST) {
+            promptRoundResult("lost");
+        } else if (score == Score.WON) {
+            promptRoundResult("won");
         } else {
             System.out.println("It was a draw!");
         }
     }
 
-    @Override
-    public void announceLastRound(String lastGameResult) {
+    private void promptRoundResult(String lastGameResult) {
         System.out.println(String.format("You %s the last round", lastGameResult));
     }
 

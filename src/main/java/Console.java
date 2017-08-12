@@ -4,9 +4,7 @@ public interface Console {
 
     void promptNextInput();
 
-    void annouceWinner(int score);
-
-    void announceLastRound(String lastGameResult);
+    void annouceLastRoundWinner(Score score);
 
     int getHowManyRounds();
 

@@ -4,28 +4,29 @@ import java.util.Scanner;
 public class Game {
     private final Console textConsole = new TextConsole(new Scanner(System.in));
     private final RandomGuesser guesser;
+    private final RoundJudge judge;
+    private final Scoreboard scoreboard;
 
     Game() {
         guesser = new RandomGuesser();
+        judge = new RoundJudge();
+        scoreboard  = new Scoreboard();
     }
 
-    //should I keep this method?
     private Shape askNext() {
         return textConsole.askNext();
     }
 
-    //should I keep this method?
     private Shape guess() {
         return guesser.nextGuess();
     }
 
-    private int score(Shape first, Shape second) {
-        return RoundJudge.getInstance().judge(first, second);
+    private Score score(Shape first, Shape second) {
+        return judge.judge(first, second);
     }
 
-    //should I keep this method?
-    private void annouceWinner(int score) {
-        textConsole.annouceWinner(score);
+    private void annouceWinner(Score score) {
+        textConsole.annouceLastRoundWinner(score);
     }
 
     //write tests for this.
@@ -34,12 +35,16 @@ public class Game {
     public void play() {
         int n = textConsole.getHowManyRounds();
         while (n > 0) {
-            Shape computerNextGuess = guess();
+            Shape computerGuess = guess();
             Shape userGuess = askNext();
 
-            System.out.println(String.format("Your guess %s vs %s", userGuess, computerNextGuess));
-            final int score = score(computerNextGuess, userGuess);
+            //move to console.
+            System.out.println(String.format("Your guess %s vs computer guess %s", userGuess, computerGuess));
+
+            final Score score = score(userGuess, computerGuess);
+            scoreboard.saveScore(score, userGuess, computerGuess);
             annouceWinner(score);
+
             n--;
         }
         textConsole.announceGameOver();

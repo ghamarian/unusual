@@ -11,20 +11,20 @@ public class RoundJudgeTest {
 
     @Before
     public void setUp() throws Exception {
-        roundJudge = RoundJudge.getInstance();
+        roundJudge = new RoundJudge();
     }
 
     private void assertLosingJudgement(Shape loser, Shape winner) {
-        assertThat(roundJudge.judge(loser, winner), is(equalTo(-1)));
+        assertThat(roundJudge.judge(loser, winner), is(equalTo(Score.LOST)));
     }
 
     private void assertWinningJudgement(Shape winner, Shape loser) {
-        assertThat(roundJudge.judge(winner, loser), is(equalTo(1)));
+        assertThat(roundJudge.judge(winner, loser), is(equalTo(Score.WON)));
     }
 
     @Test
     public void givenTwoShape_ScoreShouldStayEqual() throws Exception {
-        assertThat(roundJudge.judge(Shape.PAPER, Shape.PAPER), is(equalTo(0)));
+        assertThat(roundJudge.judge(Shape.PAPER, Shape.PAPER), is(equalTo(Score.DRAW)));
     }
 
     @Test
