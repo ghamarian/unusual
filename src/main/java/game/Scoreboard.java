@@ -11,7 +11,7 @@ public class Scoreboard {
         return history.size();
     }
 
-    void saveRoundResult(Winner winner){
+    public void saveRoundResult(Winner winner){
         history.add(winner);
     }
 

@@ -6,6 +6,7 @@ import game.Scoreboard;
 import game.Shape;
 
 import java.util.Arrays;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -41,7 +42,7 @@ public class TextConsole implements Console {
     @Override
     public void annouceLastRoundWinner(Winner winner) {
         if (winner == Winner.DRAW) {
-            System.out.println("It was a draw!");
+            System.out.println("Last round was a draw!");
         }
         else {
             promptRoundResult(winner);
@@ -102,15 +103,15 @@ public class TextConsole implements Console {
         System.out.println(String.format(" Out of the total number of %s rounds.", numberOfTries));
     }
 
-    private void announceLostMatch() {
+    protected void announceLostMatch() {
         System.out.print("Sorry, You lost! ");
     }
 
-    private void announceWonMatch() {
+    protected void announceWonMatch() {
         System.out.print("Congratulations, You won! ");
     }
 
-    private void announceDrawMatch() {
+    protected void announceDrawMatch() {
         System.out.print("It was a draw.");
     }
 
