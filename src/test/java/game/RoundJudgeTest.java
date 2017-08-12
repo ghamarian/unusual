@@ -1,8 +1,5 @@
 package game;
 
-import game.RoundJudge;
-import game.Score;
-import game.Shape;
 import org.junit.Before;
 import org.junit.Test;
 

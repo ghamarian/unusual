@@ -24,8 +24,7 @@ public class ScoreboardTest {
         for (int i = 0; i < 100; i++) {
             generateRandomGame(scoreboard, guesser, judge);
             assertThat(scoreboard.getUserScore(), is(equalTo(scoreboard.getUserScoreloop())));
-            assertThat(scoreboard.numberOfTries(), is(equalTo(scoreboard.getComputerScore() +
-                    scoreboard.getDraws() + scoreboard.getUserScore())));
+            assertThat(scoreboard.numberOfTries(), is(equalTo(scoreboard.getComputerScore() + scoreboard.getDraws() + scoreboard.getUserScore())));
             scoreboard.clear();
         }
     }

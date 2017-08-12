@@ -1,21 +1,16 @@
 package game;
 
-import gameInterface.TextConsole;
-import strategy.RandomGuesser;
-
-import java.util.Scanner;
-
 //template pattern?
 public class GameEngine {
-//    private final Console console = new TextConsole(new Scanner(System.in));
+
     private final Console console;
-    private final RandomGuesser guesser;
+    private final Guesser guesser;
     private final RoundJudge judge;
     private final Scoreboard scoreboard;
 
-    public GameEngine(Console console) {
+    public GameEngine(Console console, Guesser guesser) {
         this.console = console;
-        guesser = new RandomGuesser();
+        this.guesser = guesser;
         judge = new RoundJudge();
         scoreboard = new Scoreboard();
     }

@@ -77,8 +77,8 @@ public class TextConsole implements Console {
     @Override
     public void announceGameOver(Scoreboard scoreboard) {
         System.out.println("game.GameEngine Over.");
-        int userScore = scoreboard.getUserScore();
-        int computerScore = scoreboard.getComputerScore();
+        long userScore = scoreboard.getUserScore();
+        long computerScore = scoreboard.getComputerScore();
 
         if (userScore > computerScore) {
             System.out.print(String.format("Congratulations, You won! Your score %s vs %s.", userScore, computerScore));

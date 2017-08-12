@@ -16,47 +16,46 @@ public class Scoreboard {
             this.computerShape = computerShape;
         }
 
-        public Score getScore() {
+        Score getScore() {
             return score;
         }
     }
 
     private List<RoundResult> history = new ArrayList<>();
 
-    public int numberOfTries() {
+    public long numberOfTries() {
         return history.size();
     }
 
-    public void saveScore(Score score, Shape userShape, Shape computerShape) {
+    void saveScore(Score score, Shape userShape, Shape computerShape) {
         history.add(new RoundResult(score, userShape, computerShape));
     }
 
-    public void clear(){
+    void clear(){
         history.clear();
     }
 
-    private Integer countScore(Score won) {
-        return history.stream().reduce(0, (acc, roundResult) -> roundResult.getScore() == won ? acc + 1 : acc, (x, y) -> x + y);
+    private long countScore(Score won) {
+        return history.stream().filter(x -> x.getScore() == won).count();
     }
 
-    public int getUserScore() {
+    public long getUserScore() {
         return countScore(Score.WON);
     }
 
-    public int getComputerScore() {
+    public long getComputerScore() {
         return countScore(Score.LOST);
     }
 
-    public int getDraws() {
+    public long getDraws() {
         return countScore(Score.DRAW);
     }
 
-    public int getUserScoreloop() {
-        int userWins = 0;
+    long getUserScoreloop() {
+        long userWins = 0;
         for (RoundResult roundResult : history) {
             if (roundResult.score == Score.WON) userWins++;
         }
         return userWins;
     }
-
 }
