@@ -3,7 +3,6 @@ package strategy;
 import game.Guesser;
 import game.Shape;
 import org.junit.Test;
-import strategy.RandomGuesser;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;

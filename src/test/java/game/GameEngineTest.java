@@ -13,7 +13,7 @@ import static org.hamcrest.core.Is.is;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
 
-public class GameEngineEngineTest {
+public class GameEngineTest {
 
     @Mock
     Guesser guesser;
