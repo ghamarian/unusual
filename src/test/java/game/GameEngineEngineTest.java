@@ -61,7 +61,7 @@ public class GameEngineEngineTest {
         GameEngine game = new GameEngine(new TextConsole(new Scanner("3\nscissors\nrock\nquit\n")), guesser);
         Scoreboard scoreboard = game.play();
         assertScoreBoard(scoreboard, 1, 0, 1);
-        assertThat(scoreboard.numberOfTries(), is(equalTo(2L)));
+        assertThat(scoreboard.numberOfRounds(), is(equalTo(2L)));
     }
 
 

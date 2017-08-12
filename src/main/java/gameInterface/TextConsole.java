@@ -6,7 +6,6 @@ import game.Scoreboard;
 import game.Shape;
 
 import java.util.Arrays;
-import java.util.NoSuchElementException;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -96,7 +95,7 @@ public class TextConsole implements Console {
             announceLostMatch();
         }
         announceFinalScores(userScore, computerScore);
-        announceNumberOfRuncs(scoreboard.numberOfTries());
+        announceNumberOfRuncs(scoreboard.numberOfRounds());
     }
 
     private void announceNumberOfRuncs(long numberOfTries) {

@@ -7,7 +7,7 @@ public class Scoreboard {
 
     private List<Winner> history = new ArrayList<>();
 
-    public long numberOfTries() {
+    public long numberOfRounds() {
         return history.size();
     }
 

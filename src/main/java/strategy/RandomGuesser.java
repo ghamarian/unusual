@@ -5,7 +5,6 @@ import game.Shape;
 
 import java.util.*;
 
-//strategy pattern
 public class RandomGuesser implements Guesser {
 
     private final List<Shape> SHAPES = Shape.shapes();

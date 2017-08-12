@@ -8,7 +8,10 @@ class RoundJudge {
         Shape.SCISSORS.setWeakerShapes(Shape.PAPER);
     }
 
-    Winner judge(Shape first, Shape second) {
-        return first.winsAgainst(second);
+    Winner judge(Shape user, Shape computer) {
+        if (user == computer){
+           return Winner.DRAW;
+        }
+        return user.winsAgainst(computer) ? Winner.USER : Winner.COMPUTER;
     }
 }

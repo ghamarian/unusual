@@ -1,12 +1,13 @@
 package game;
 
-//template pattern?
 public class GameEngine {
 
     private final Console console;
     private final Guesser guesser;
     private final RoundJudge judge;
     private final Scoreboard scoreboard;
+    private int numberOfRounds;
+    private boolean gameOver;
 
     public GameEngine(Console console, Guesser guesser) {
         this.console = console;
@@ -23,7 +24,6 @@ public class GameEngine {
         return guesser.nextGuess();
     }
 
-    //TODO do something about this findWinner, do you need it like this?
     private Winner findWinner(Shape userShape, Shape computerShape) {
         return judge.judge(userShape, computerShape);
     }
@@ -33,10 +33,10 @@ public class GameEngine {
     }
 
     public Scoreboard play() {
-        int numberOfRounds = console.askUserForNumberOfRounds();
-        boolean gameOver = false;
+        numberOfRounds = console.askUserForNumberOfRounds();
+        gameOver = false;
 
-        while (!gameOver(numberOfRounds, gameOver)) {
+        while (!gameOver()) {
             Shape computerGuess = guess();
             Shape userGuess = askNext();
 
@@ -49,14 +49,13 @@ public class GameEngine {
             final Winner winner = findWinner(userGuess, computerGuess);
             announceLastLevelWinner(winner);
             scoreboard.saveRoundResult(winner);
-            numberOfRounds--;
         }
         console.announceGameOver(scoreboard);
         return scoreboard;
     }
 
-    private boolean gameOver(int remainingTries, boolean gameOver) {
-        return remainingTries == 0 || gameOver;
+    private boolean gameOver() {
+        return scoreboard.numberOfRounds() >= numberOfRounds || gameOver;
     }
 
     private void annouceGuesses(Shape computerGuess, Shape userGuess) {
