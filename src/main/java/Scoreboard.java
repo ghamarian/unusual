@@ -4,59 +4,57 @@ import java.util.List;
 public class Scoreboard {
 
     static class RoundResult {
-        Score score;
-        Shape userShape;
-        Shape computerShape;
+        private Score score;
+        private Shape userShape;
+        private Shape computerShape;
 
         RoundResult(Score score, Shape userShape, Shape computerShape) {
             this.score = score;
             this.userShape = userShape;
             this.computerShape = computerShape;
         }
-    }
 
-    public static class ScoreSummary {
-       int userWins;
-       int computerWins;
-       int draws;
-
-        public ScoreSummary(int userWins, int computerWins, int draws) {
-            this.userWins = userWins;
-            this.computerWins = computerWins;
-            this.draws = draws;
-        }
-
-        public Score getFinalScore() {
-            if (userWins == computerWins) {
-                return Score.DRAW;
-            }
-            return (userWins > computerWins) ? Score.WON : Score.LOST;
+        public Score getScore() {
+            return score;
         }
     }
 
     private List<RoundResult> history = new ArrayList<>();
 
+    public int numberOfTries() {
+        return history.size();
+    }
+
     public void saveScore(Score score, Shape userShape, Shape computerShape) {
         history.add(new RoundResult(score, userShape, computerShape));
     }
 
-    //make it a few method.
-    public ScoreSummary summarizeScore() {
+    public void clear(){
+        history.clear();
+    }
+
+    private Integer countScore(Score won) {
+        return history.stream().reduce(0, (acc, roundResult) -> roundResult.getScore() == won ? acc + 1 : acc, (x, y) -> x + y);
+    }
+
+    public int getUserScore() {
+        return countScore(Score.WON);
+    }
+
+    public int getComputerScore() {
+        return countScore(Score.LOST);
+    }
+
+    public int getDraws() {
+        return countScore(Score.DRAW);
+    }
+
+    public int getUserScoreloop() {
         int userWins = 0;
-        int computerWins = 0;
-        int draws = 0;
         for (RoundResult roundResult : history) {
-           if (roundResult.score == Score.WON) {
-               ++userWins;
-           }
-           else if (roundResult.score == Score.LOST) {
-               ++computerWins;
-           }
-           else {
-               ++draws;
-           }
+            if (roundResult.score == Score.WON) userWins++;
         }
-        return new ScoreSummary(userWins, computerWins, draws);
+        return userWins;
     }
 
 }

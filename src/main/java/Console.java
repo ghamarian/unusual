@@ -10,7 +10,7 @@ public interface Console {
 
     void promptUserForNumberOfRounds();
 
-    void announceGameOver(Scoreboard.ScoreSummary scoreboard);
+    void announceGameOver(Scoreboard scoreboard);
 
     void announceGuesses(Shape userGuess, Shape computerGuess);
 }

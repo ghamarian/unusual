@@ -31,9 +31,10 @@ public class Game {
 
     //write tests for this.
     public void play() {
-        int n = console.getHowManyRounds();
+        int numberOfRounds = console.getHowManyRounds();
         boolean gameOver = false;
-        while (n > 0 && !gameOver) {
+
+        while (!gameOver(numberOfRounds, gameOver)) {
             Shape computerGuess = guess();
             Shape userGuess = askNext();
 
@@ -47,9 +48,13 @@ public class Game {
             final Score score = score(userGuess, computerGuess);
             scoreboard.saveScore(score, userGuess, computerGuess);
             announceLastLevelWinner(score);
-            n--;
+            numberOfRounds--;
         }
-        console.announceGameOver(scoreboard.summarizeScore());
+        console.announceGameOver(scoreboard);
+    }
+
+    private boolean gameOver(int remainingTries, boolean gameOver) {
+        return remainingTries == 0 || gameOver;
     }
 
     private void annouceGuesses(Shape computerGuess, Shape userGuess) {

@@ -61,18 +61,24 @@ public class TextConsole implements Console {
     }
 
     @Override
-    public void announceGameOver(Scoreboard.ScoreSummary scoreSummary) {
+    public void announceGameOver(Scoreboard scoreboard) {
         System.out.println("Game Over.");
-        Score finalScore = scoreSummary.getFinalScore();
-        if (finalScore == Score.WON) {
-            System.out.println("You won the game." );
+        int userScore = scoreboard.getUserScore();
+        int computerScore = scoreboard.getComputerScore();
 
+        if (userScore > computerScore) {
+            System.out.println(String.format("Congratulations, You won! Your score %s vs %s.", userScore, computerScore));
+        } else if (userScore < computerScore) {
+            System.out.println(String.format("Sorry, You Lost! Your score %s vs %s.", userScore, computerScore));
         }
-        System.out.println();
+        else {
+            System.out.println(String.format("It was a draw with %s wins each.", userScore));
+        }
+
     }
 
     @Override
-    public void announceGuesses(Shape userGuess, Shape computerGuess){
+    public void announceGuesses(Shape userGuess, Shape computerGuess) {
         System.out.println(String.format("Your guess %s vs computer guess %s", userGuess, computerGuess));
     }
 }
