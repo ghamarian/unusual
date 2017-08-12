@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Scoreboard {
+
     static class RoundResult {
         Score score;
         Shape userShape;
@@ -39,6 +40,7 @@ public class Scoreboard {
         history.add(new RoundResult(score, userShape, computerShape));
     }
 
+    //make it a few method.
     public ScoreSummary summarizeScore() {
         int userWins = 0;
         int computerWins = 0;

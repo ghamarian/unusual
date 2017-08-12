@@ -5,7 +5,8 @@ import java.util.Set;
 enum Shape {
     ROCK,
     PAPER,
-    SCISSORS;
+    SCISSORS,
+    QUIT;
 
     Set<Shape> weakerShapes = new HashSet<>();
 

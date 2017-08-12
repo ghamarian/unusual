@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 //template pattern?
 public class Game {
-    private final Console textConsole = new TextConsole(new Scanner(System.in));
+    private final Console console = new TextConsole(new Scanner(System.in));
     private final RandomGuesser guesser;
     private final RoundJudge judge;
     private final Scoreboard scoreboard;
@@ -14,7 +14,7 @@ public class Game {
     }
 
     private Shape askNext() {
-        return textConsole.askNext();
+        return console.askNext();
     }
 
     private Shape guess() {
@@ -26,16 +26,21 @@ public class Game {
     }
 
     private void announceLastLevelWinner(Score score) {
-        textConsole.annouceLastRoundWinner(score);
+        console.annouceLastRoundWinner(score);
     }
 
     //write tests for this.
     public void play() {
-        int n = textConsole.getHowManyRounds();
-        TerminationManager terminationManager = new TerminationManager(n);
-        while (!terminationManager.gameOver()) {
+        int n = console.getHowManyRounds();
+        boolean gameOver = false;
+        while (n > 0 && !gameOver) {
             Shape computerGuess = guess();
             Shape userGuess = askNext();
+
+            if (userGuess == Shape.QUIT) {
+                gameOver = true;
+                continue;
+            }
 
             annouceGuesses(computerGuess, userGuess);
 
@@ -44,11 +49,11 @@ public class Game {
             announceLastLevelWinner(score);
             n--;
         }
-        textConsole.announceGameOver(scoreboard.summarizeScore());
+        console.announceGameOver(scoreboard.summarizeScore());
     }
 
     private void annouceGuesses(Shape computerGuess, Shape userGuess) {
-        textConsole.announceGuesses(userGuess, computerGuess);
+        console.announceGuesses(userGuess, computerGuess);
     }
 
     public static void main(String[] args) {
