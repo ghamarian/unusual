@@ -1,3 +1,5 @@
+import com.sun.xml.internal.xsom.impl.Ref;
+
 import java.util.Scanner;
 
 //template pattern?
@@ -10,7 +12,7 @@ public class Game {
     Game() {
         guesser = new RandomGuesser();
         judge = new RoundJudge();
-        scoreboard  = new Scoreboard();
+        scoreboard = new Scoreboard();
     }
 
     private Shape askNext() {
@@ -30,26 +32,26 @@ public class Game {
     }
 
     //write tests for this.
-    //keep the scores.
-    //change the score from an int to something more useful.
     public void play() {
         int n = textConsole.getHowManyRounds();
-        while (n > 0) {
+        TerminationManager terminationManager = new TerminationManager(n);
+        while (!terminationManager.gameOver()) {
             Shape computerGuess = guess();
             Shape userGuess = askNext();
 
-            //move to console.
-            System.out.println(String.format("Your guess %s vs computer guess %s", userGuess, computerGuess));
+            annouceGuesses(computerGuess, userGuess);
 
             final Score score = score(userGuess, computerGuess);
             scoreboard.saveScore(score, userGuess, computerGuess);
             annouceWinner(score);
-
             n--;
         }
-        textConsole.announceGameOver();
+        textConsole.announceGameOver(scoreboard.summarizeScore());
     }
 
+    private void annouceGuesses(Shape computerGuess, Shape userGuess) {
+        textConsole.announceGuesses(userGuess, computerGuess);
+    }
 
     public static void main(String[] args) {
         Game game = new Game();

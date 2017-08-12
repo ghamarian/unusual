@@ -1,3 +1,5 @@
+import com.sun.tools.internal.xjc.reader.xmlschema.WildcardNameClassBuilder;
+
 import java.util.Arrays;
 import java.util.Scanner;
 import java.util.regex.Matcher;
@@ -56,12 +58,23 @@ public class TextConsole implements Console {
         System.out.println("Please enter how many rounds would you like to play?");
     }
 
-    protected String getNextToken() {
+    private String getNextToken() {
         return scanner.next();
     }
 
     @Override
-    public void announceGameOver() {
+    public void announceGameOver(Scoreboard.ScoreSummary scoreSummary) {
         System.out.println("Game Over.");
+        Score finalScore = scoreSummary.getFinalScore();
+        if (finalScore == Score.WON) {
+            System.out.println("You won the game." );
+
+        }
+        System.out.println();
+    }
+
+    @Override
+    public void announceGuesses(Shape userGuess, Shape computerGuess){
+        System.out.println(String.format("Your guess %s vs computer guess %s", userGuess, computerGuess));
     }
 }
