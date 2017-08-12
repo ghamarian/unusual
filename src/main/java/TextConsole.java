@@ -48,16 +48,22 @@ public class TextConsole implements Console {
     @Override
     public int getHowManyRounds() {
         promptUserForNumberOfRounds();
-        return scanner.nextInt();
+        int result = -1;
+        while (result < 0) {
+            try {
+                final String next = scanner.next();
+                result = Integer.parseInt(next);
+            } catch (NumberFormatException e) {
+                System.out.println("Please enter a numerical value.");
+                promptUserForNumberOfRounds();
+            }
+        }
+        return result;
     }
 
     @Override
     public void promptUserForNumberOfRounds() {
         System.out.println("Please enter how many rounds would you like to play?");
-    }
-
-    private String getNextToken() {
-        return scanner.next();
     }
 
     @Override
@@ -67,18 +73,22 @@ public class TextConsole implements Console {
         int computerScore = scoreboard.getComputerScore();
 
         if (userScore > computerScore) {
-            System.out.println(String.format("Congratulations, You won! Your score %s vs %s.", userScore, computerScore));
+            System.out.print(String.format("Congratulations, You won! Your score %s vs %s.", userScore, computerScore));
         } else if (userScore < computerScore) {
-            System.out.println(String.format("Sorry, You Lost! Your score %s vs %s.", userScore, computerScore));
+            System.out.print(String.format("Sorry, You Lost! Your score %s vs %s.", userScore, computerScore));
         }
         else {
-            System.out.println(String.format("It was a draw with %s wins each.", userScore));
+            System.out.print(String.format("It was a draw with %s(s) wins each.", userScore));
         }
-
+        System.out.println(String.format(" Out of the total number of %s rounds.", scoreboard.numberOfTries()));
     }
 
     @Override
     public void announceGuesses(Shape userGuess, Shape computerGuess) {
         System.out.println(String.format("Your guess %s vs computer guess %s", userGuess, computerGuess));
+    }
+
+    private String getNextToken() {
+        return scanner.next();
     }
 }

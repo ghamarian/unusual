@@ -1,6 +1,4 @@
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 enum Shape {
     ROCK,
@@ -14,7 +12,16 @@ enum Shape {
         weakerShapes.addAll(Arrays.asList(shapes));
     }
 
-    public boolean winsAgainst(Shape shape) {
-        return weakerShapes.contains(shape);
+    public Score winsAgainst(Shape shape) {
+        if (this == shape){
+           return Score.DRAW;
+        }
+        return weakerShapes.contains(shape) ? Score.WON : Score.LOST;
+    }
+
+    public static List<Shape> shapes() {
+        List<Shape> allShapes = new ArrayList<>(Arrays.asList(Shape.values()));
+        allShapes.remove(Shape.QUIT);
+        return Collections.unmodifiableList(allShapes);
     }
 }

@@ -7,13 +7,7 @@ public class RoundJudge {
     }
 
     Score judge(Shape first, Shape second) {
-        if (first == second) {
-            return Score.DRAW;
-        }
-        if (first.winsAgainst(second)) {
-            return Score.WON;
-        }
-        else return Score.LOST;
+        return first.winsAgainst(second);
     }
 
 }
