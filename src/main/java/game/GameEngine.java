@@ -32,9 +32,7 @@ public class GameEngine {
         console.annouceLastRoundWinner(winner);
     }
 
-    //TODO: write tests for this.
-    //TODO: make it testable.
-    public void play() {
+    public Scoreboard play() {
         int numberOfRounds = console.askUserForNumberOfRounds();
         boolean gameOver = false;
 
@@ -54,6 +52,7 @@ public class GameEngine {
             numberOfRounds--;
         }
         console.announceGameOver(scoreboard);
+        return scoreboard;
     }
 
     private boolean gameOver(int remainingTries, boolean gameOver) {
