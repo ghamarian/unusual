@@ -23,18 +23,19 @@ public class GameEngine {
         return guesser.nextGuess();
     }
 
-    private RoundWinner score(Shape first, Shape second) {
-        return judge.judge(first, second);
+    //TODO do something about this findWinner, do you need it like this?
+    private Winner findWinner(Shape userShape, Shape computerShape) {
+        return judge.judge(userShape, computerShape);
     }
 
-    private void announceLastLevelWinner(RoundWinner roundWinner) {
-        console.annouceLastRoundWinner(roundWinner);
+    private void announceLastLevelWinner(Winner winner) {
+        console.annouceLastRoundWinner(winner);
     }
 
-    //write tests for this.
-    //make it testable.
+    //TODO: write tests for this.
+    //TODO: make it testable.
     public void play() {
-        int numberOfRounds = console.getHowManyRounds();
+        int numberOfRounds = console.askUserForNumberOfRounds();
         boolean gameOver = false;
 
         while (!gameOver(numberOfRounds, gameOver)) {
@@ -47,10 +48,9 @@ public class GameEngine {
             }
 
             annouceGuesses(computerGuess, userGuess);
-
-            final RoundWinner roundWinner = score(userGuess, computerGuess);
-            scoreboard.saveScore(roundWinner);
-            announceLastLevelWinner(roundWinner);
+            final Winner winner = findWinner(userGuess, computerGuess);
+            announceLastLevelWinner(winner);
+            scoreboard.saveRoundResult(winner);
             numberOfRounds--;
         }
         console.announceGameOver(scoreboard);

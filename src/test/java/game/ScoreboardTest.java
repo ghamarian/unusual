@@ -21,7 +21,7 @@ public class ScoreboardTest {
             generateRandomGame(scoreboard, guesser, judge);
             assertThat(scoreboard.getUserScore(), is(equalTo(scoreboard.getUserScoreloop())));
             assertThat(scoreboard.numberOfTries(), is(equalTo(scoreboard.getComputerScore() + scoreboard.getDraws() + scoreboard.getUserScore())));
-            scoreboard.clear();
+            scoreboard.clearHistory();
         }
     }
 
@@ -30,7 +30,7 @@ public class ScoreboardTest {
         for (int i = 0; i < random.nextInt(10); i++) {
             final Shape userGuess = guesser.nextGuess();
             final Shape computerGuess = guesser.nextGuess();
-            scoreboard.saveScore(judge.judge(userGuess, computerGuess));
+            scoreboard.saveRoundResult(judge.judge(userGuess, computerGuess));
         }
     }
 

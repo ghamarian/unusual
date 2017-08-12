@@ -1,6 +1,6 @@
 package game;
 
-public enum RoundWinner {
+public enum Winner {
     USER, COMPUTER, DRAW
 }
 

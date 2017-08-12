@@ -5,40 +5,49 @@ import java.util.List;
 
 public class Scoreboard {
 
-    private List<RoundWinner> history = new ArrayList<>();
+    private List<Winner> history = new ArrayList<>();
 
     public long numberOfTries() {
         return history.size();
     }
 
-    void saveScore(RoundWinner roundWinner){
-        history.add(roundWinner);
+    void saveRoundResult(Winner winner){
+        history.add(winner);
     }
 
-    void clear(){
+    void clearHistory(){
         history.clear();
     }
 
-    private long countScore(RoundWinner won) {
+    private long countScore(Winner won) {
         return history.stream().filter(x -> x == won).count();
     }
 
-    public long getUserScore() {
-        return countScore(RoundWinner.USER);
-    }
-
     public long getComputerScore() {
-        return countScore(RoundWinner.COMPUTER);
+        return countScore(Winner.COMPUTER);
     }
 
     public long getDraws() {
-        return countScore(RoundWinner.DRAW);
+        return countScore(Winner.DRAW);
+    }
+
+    public long getUserScore() {
+        return countScore(Winner.USER);
+    }
+
+    public Winner getWinner() {
+        long userScore = getUserScore();
+        long computerScore = getComputerScore();
+
+        if (userScore == computerScore) {
+            return Winner.DRAW;
+        } else return (userScore > computerScore) ? Winner.USER : Winner.COMPUTER;
     }
 
     long getUserScoreloop() {
         long userWins = 0;
-        for (RoundWinner roundWinner : history) {
-            if (roundWinner == RoundWinner.USER) {
+        for (Winner winner : history) {
+            if (winner == Winner.USER) {
                 userWins++;
             }
         }

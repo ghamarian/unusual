@@ -17,16 +17,16 @@ public class RoundJudgeTest {
     }
 
     private void assertUserLoses(Shape loser, Shape winner) {
-        assertThat(roundJudge.judge(loser, winner), is(equalTo(RoundWinner.COMPUTER)));
+        assertThat(roundJudge.judge(loser, winner), is(equalTo(Winner.COMPUTER)));
     }
 
     private void assertUserWins(Shape winner, Shape loser) {
-        assertThat(roundJudge.judge(winner, loser), is(equalTo(RoundWinner.USER)));
+        assertThat(roundJudge.judge(winner, loser), is(equalTo(Winner.USER)));
     }
 
     @Test
     public void givenTwoShape_ScoreShouldStayEqual() throws Exception {
-        assertThat(roundJudge.judge(Shape.PAPER, Shape.PAPER), is(equalTo(RoundWinner.DRAW)));
+        assertThat(roundJudge.judge(Shape.PAPER, Shape.PAPER), is(equalTo(Winner.DRAW)));
     }
 
     @Test

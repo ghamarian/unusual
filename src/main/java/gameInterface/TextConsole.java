@@ -1,7 +1,7 @@
 package gameInterface;
 
 import game.Console;
-import game.RoundWinner;
+import game.Winner;
 import game.Scoreboard;
 import game.Shape;
 
@@ -39,22 +39,30 @@ public class TextConsole implements Console {
 
     //TODO: make string values constant
     @Override
-    public void annouceLastRoundWinner(RoundWinner roundWinner) {
-        if (roundWinner == RoundWinner.USER) {
-            promptRoundResult("won");
-        } else if (roundWinner == RoundWinner.COMPUTER) {
-            promptRoundResult("lost");
-        } else {
+    public void annouceLastRoundWinner(Winner winner) {
+        if (winner == Winner.DRAW) {
             System.out.println("It was a draw!");
+        }
+        else {
+            promptRoundResult(winner);
         }
     }
 
-    private void promptRoundResult(String lastGameResult) {
-        System.out.println(String.format("You %s the last round", lastGameResult));
+    private void promptRoundResult(Winner winner) {
+        System.out.println(String.format("%s won the last round.", translate(winner)));
+    }
+
+    private String translate(Winner winner) {
+        if (winner == Winner.USER) {
+            return "You";
+        }
+        else if (winner == Winner.COMPUTER){
+            return "Computer";
+        } else return "Everybody";
     }
 
     @Override
-    public int getHowManyRounds() {
+    public int askUserForNumberOfRounds() {
         promptUserForNumberOfRounds();
         int result = -1;
         while (result < 0) {
@@ -70,30 +78,53 @@ public class TextConsole implements Console {
     }
 
     @Override
-    public void promptUserForNumberOfRounds() {
-        System.out.println("Please enter how many rounds would you like to play?");
-    }
-
-    @Override
     public void announceGameOver(Scoreboard scoreboard) {
-        System.out.println("game.GameEngine Over.");
+        System.out.println("Game over.");
+
         long userScore = scoreboard.getUserScore();
         long computerScore = scoreboard.getComputerScore();
+        final Winner winner = scoreboard.getWinner();
 
-        if (userScore > computerScore) {
-            System.out.print(String.format("Congratulations, You won! Your score %s vs %s.", userScore, computerScore));
-        } else if (userScore < computerScore) {
-            System.out.print(String.format("Sorry, You Lost! Your score %s vs %s.", userScore, computerScore));
+        if (winner == Winner.DRAW) {
+            announceDrawMatch();
+        }
+        else if (winner == Winner.USER){
+            announceWonMatch();
         }
         else {
-            System.out.print(String.format("It was a draw with %s(s) wins each.", userScore));
+            announceLostMatch();
         }
-        System.out.println(String.format(" Out of the total number of %s rounds.", scoreboard.numberOfTries()));
+        announceFinalScores(userScore, computerScore);
+        announceNumberOfRuncs(scoreboard.numberOfTries());
+    }
+
+    private void announceNumberOfRuncs(long numberOfTries) {
+        System.out.println(String.format(" Out of the total number of %s rounds.", numberOfTries));
+    }
+
+    private void announceLostMatch() {
+        System.out.print("Sorry, You lost! ");
+    }
+
+    private void announceWonMatch() {
+        System.out.print("Congratulations, You won! ");
+    }
+
+    private void announceDrawMatch() {
+        System.out.print("It was a draw.");
+    }
+
+    private void announceFinalScores(long userScore, long computerScore) {
+        System.out.print(String.format("Your score %s vs %s.", userScore, computerScore));
     }
 
     @Override
     public void announceGuesses(Shape userGuess, Shape computerGuess) {
         System.out.println(String.format("Your guess %s vs computer guess %s", userGuess, computerGuess));
+    }
+
+    private void promptUserForNumberOfRounds() {
+        System.out.println("Please enter how many rounds would you like to play?");
     }
 
     private String getNextToken() {
