@@ -1,5 +1,3 @@
-import com.sun.tools.internal.xjc.reader.xmlschema.WildcardNameClassBuilder;
-
 import java.util.Arrays;
 import java.util.Scanner;
 import java.util.regex.Matcher;

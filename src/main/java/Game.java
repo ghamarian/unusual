@@ -1,5 +1,3 @@
-import com.sun.xml.internal.xsom.impl.Ref;
-
 import java.util.Scanner;
 
 //template pattern?
@@ -27,7 +25,7 @@ public class Game {
         return judge.judge(first, second);
     }
 
-    private void annouceWinner(Score score) {
+    private void announceLastLevelWinner(Score score) {
         textConsole.annouceLastRoundWinner(score);
     }
 
@@ -43,7 +41,7 @@ public class Game {
 
             final Score score = score(userGuess, computerGuess);
             scoreboard.saveScore(score, userGuess, computerGuess);
-            annouceWinner(score);
+            announceLastLevelWinner(score);
             n--;
         }
         textConsole.announceGameOver(scoreboard.summarizeScore());
