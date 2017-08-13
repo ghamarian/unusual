@@ -6,6 +6,8 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.stubbing.OngoingStubbing;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import java.util.Arrays;
 import java.util.Scanner;
 import java.util.stream.Collectors;
@@ -22,17 +24,19 @@ public class GameEngineTest {
     private Guesser guesser;
 
     private TextConsole console;
+    private PrintStream out;
 
     @Before
     public void setUp() throws Exception {
         initMocks(this);
+        out = new PrintStream(new ByteArrayOutputStream());
     }
 
     private void createConsoleGenerating(Shape... shapes) {
         final String newline = "\n";
         final String prefix = String.valueOf(shapes.length) + newline;
         String input = Arrays.stream(shapes).map(Object::toString).collect(Collectors.joining(newline, prefix, newline));
-        console = spy(new TextConsole(new Scanner(input)));
+        console = spy(new TextConsole(new Scanner(input), out));
     }
 
     private void mockGuesserWith(Shape... shapes) {

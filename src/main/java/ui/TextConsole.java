@@ -5,6 +5,7 @@ import game.Winner;
 import game.Scoreboard;
 import game.Shape;
 
+import java.io.PrintStream;
 import java.util.Arrays;
 import java.util.Scanner;
 import java.util.regex.Matcher;
@@ -12,12 +13,28 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class TextConsole implements Console {
+    private static final String HOW_MANY_ROUNDS_PROMPT = "Please enter how many rounds would you like to play?";
+    private static final String SHOW_GUSSES_STATEMENT = "Your guess %s vs computer guess %s";
+    private static final String FINAL_SCORE_STATEMENT = "Your score %s vs %s.";
+    private static final String PROMPT_ENTER_GUESS_STATEMENT = "Please enter your guess %s: ";
+    private static final String ANNOUNCE_NUMBER_OF_ROUNDS_STATEMENT = " Out of the total number of %s rounds.";
+    private static final String ANNOUNCE_ROUND_WON_RESULT = "%s won the last round.";
+    private static final String ANNOUNCE_ROUND_DRAW_RESULT = "Last round was a draw!";
+
+    static final String ANNOUNCE_DRAW_STATEMENT = "It was a draw. ";
+    static final String ANNOUNCE_WIN_STATEMENT = "Congratulations, You won! ";
+    static final String ANNOUNCE_LOSS_STATEMENT = "Sorry, You lost! ";
+    static final String ANNOUNCE_GAME_OVER_STATEMENT = "Game over.";
+    static final String ENTER_NUMERICAL_PROMPT = "Please enter a numerical value.";
+
+    private final PrintStream out;
     private Scanner scanner;
     private Pattern pattern;
 
-    public TextConsole(Scanner scanner) {
+    public TextConsole(Scanner scanner, PrintStream out) {
         this.scanner = scanner;
         this.pattern = Pattern.compile(Arrays.stream(Shape.values()).map(Object::toString).collect(Collectors.joining("|")), Pattern.CASE_INSENSITIVE);
+        this.out = out;
     }
 
     @Override
@@ -32,31 +49,14 @@ public class TextConsole implements Console {
         return Shape.valueOf(matcher.group());
     }
 
-    private void promptNextInput() {
-        System.out.println(String.format("Please enter your guess %s: ", Arrays.toString(Shape.values())));
-    }
-
     @Override
     public void annouceLastRoundWinner(Winner winner) {
         if (winner == Winner.DRAW) {
-            System.out.println("Last round was a draw!");
+            out.println(ANNOUNCE_ROUND_DRAW_RESULT);
         }
         else {
             promptRoundResult(winner);
         }
-    }
-
-    private void promptRoundResult(Winner winner) {
-        System.out.println(String.format("%s won the last round.", translate(winner)));
-    }
-
-    private String translate(Winner winner) {
-        if (winner == Winner.USER) {
-            return "You";
-        }
-        else if (winner == Winner.COMPUTER){
-            return "Computer";
-        } else return "Everybody";
     }
 
     @Override
@@ -68,7 +68,7 @@ public class TextConsole implements Console {
                 final String next = scanner.next();
                 result = Integer.parseInt(next);
             } catch (NumberFormatException e) {
-                System.out.println("Please enter a numerical value.");
+                out.println(ENTER_NUMERICAL_PROMPT);
                 promptUserForNumberOfRounds();
             }
         }
@@ -77,7 +77,7 @@ public class TextConsole implements Console {
 
     @Override
     public void announceGameOver(Scoreboard scoreboard) {
-        System.out.println("Game over.");
+        out.println(ANNOUNCE_GAME_OVER_STATEMENT);
 
         long userScore = scoreboard.getUserScore();
         long computerScore = scoreboard.getComputerScore();
@@ -97,36 +97,53 @@ public class TextConsole implements Console {
         announceNumberOfRuncs(scoreboard.numberOfRounds());
     }
 
+    @Override
+    public void announceGuesses(Shape userGuess, Shape computerGuess) {
+        out.println(String.format(SHOW_GUSSES_STATEMENT, userGuess, computerGuess));
+    }
+
     private void announceNumberOfRuncs(long numberOfTries) {
-        System.out.println(String.format(" Out of the total number of %s rounds.", numberOfTries));
+        out.println(String.format(ANNOUNCE_NUMBER_OF_ROUNDS_STATEMENT, numberOfTries));
     }
 
     public void announceLostMatch() {
-        System.out.print("Sorry, You lost! ");
+        out.print(ANNOUNCE_LOSS_STATEMENT);
     }
 
     public void announceWonMatch() {
-        System.out.print("Congratulations, You won! ");
+        out.print(ANNOUNCE_WIN_STATEMENT);
     }
 
     public void announceDrawMatch() {
-        System.out.print("It was a draw.");
+        out.print(ANNOUNCE_DRAW_STATEMENT);
     }
 
     private void announceFinalScores(long userScore, long computerScore) {
-        System.out.print(String.format("Your score %s vs %s.", userScore, computerScore));
-    }
-
-    @Override
-    public void announceGuesses(Shape userGuess, Shape computerGuess) {
-        System.out.println(String.format("Your guess %s vs computer guess %s", userGuess, computerGuess));
+        out.print(String.format(FINAL_SCORE_STATEMENT, userScore, computerScore));
     }
 
     private void promptUserForNumberOfRounds() {
-        System.out.println("Please enter how many rounds would you like to play?");
+        out.println(HOW_MANY_ROUNDS_PROMPT);
     }
 
     private String getNextToken() {
         return scanner.next();
+    }
+
+    void promptNextInput() {
+        out.println(String.format(PROMPT_ENTER_GUESS_STATEMENT, Arrays.toString(Shape.values())));
+    }
+
+    private void promptRoundResult(Winner winner) {
+        out.println(String.format(ANNOUNCE_ROUND_WON_RESULT, translate(winner)));
+    }
+
+    private String translate(Winner winner) {
+        if (winner == Winner.USER) {
+            return "You";
+        }
+        else if (winner == Winner.COMPUTER){
+            return "Computer";
+        } else return "Everybody";
     }
 }
