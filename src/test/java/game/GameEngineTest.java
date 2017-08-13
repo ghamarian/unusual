@@ -4,6 +4,7 @@ import gameInterface.TextConsole;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
+import org.mockito.stubbing.OngoingStubbing;
 
 import java.util.Arrays;
 import java.util.Scanner;
@@ -25,51 +26,53 @@ public class GameEngineTest {
         initMocks(this);
     }
 
-    private TextConsole generateConsoleGenerating(Shape... shapes) {
+    private TextConsole createConsoleGenerating(Shape... shapes) {
         final String newline = "\n";
         final String prefix = String.valueOf(shapes.length) + newline;
         String input = Arrays.stream(shapes).map(Object::toString).collect(Collectors.joining(newline, prefix, newline));
         return new TextConsole(new Scanner(input));
     }
 
+    private void mockGuesserWith(Shape... shapes) {
+        OngoingStubbing<Shape> when = when(guesser.nextGuess());
+        for (Shape shape : shapes) {
+            when = when.thenReturn(shape);
+        }
+    }
+
+    private Scoreboard runGame(Shape[] computerGuesses, Shape[] userInputs) {
+        mockGuesserWith(computerGuesses);
+        GameEngine game = new GameEngine(createConsoleGenerating(userInputs), guesser);
+        return game.play();
+    }
+
     @Test
     public void threeWins() throws Exception {
-        when(guesser.nextGuess()).thenReturn(Shape.PAPER).thenReturn(Shape.PAPER).thenReturn(Shape.PAPER);
-        GameEngine game = new GameEngine(generateConsoleGenerating(Shape.ROCK, Shape.ROCK, Shape.ROCK), guesser);
-        Scoreboard scoreboard = game.play();
+        Scoreboard scoreboard = runGame(new Shape[]{Shape.PAPER, Shape.PAPER, Shape.PAPER}, new Shape[]{Shape.ROCK, Shape.ROCK, Shape.ROCK});
         assertScoreBoard(scoreboard, 0, 3, 0);
     }
 
     @Test
     public void threeLosses() throws Exception {
-        when(guesser.nextGuess()).thenReturn(Shape.SCISSORS).thenReturn(Shape.SCISSORS).thenReturn(Shape.SCISSORS);
-        GameEngine game = new GameEngine(generateConsoleGenerating(Shape.ROCK, Shape.ROCK, Shape.ROCK), guesser);
-        Scoreboard scoreboard = game.play();
+        Scoreboard scoreboard = runGame(new Shape[]{Shape.SCISSORS, Shape.SCISSORS, Shape.SCISSORS}, new Shape[]{Shape.ROCK, Shape.ROCK, Shape.ROCK});
         assertScoreBoard(scoreboard, 3, 0, 0);
     }
 
     @Test
     public void threeDraws() throws Exception {
-        when(guesser.nextGuess()).thenReturn(Shape.SCISSORS).thenReturn(Shape.SCISSORS).thenReturn(Shape.SCISSORS);
-        GameEngine game = new GameEngine(generateConsoleGenerating(Shape.SCISSORS, Shape.SCISSORS, Shape.SCISSORS), guesser);
-        Scoreboard scoreboard = game.play();
+        Scoreboard scoreboard = runGame(new Shape[]{Shape.SCISSORS, Shape.SCISSORS, Shape.SCISSORS}, new Shape[]{Shape.SCISSORS, Shape.SCISSORS, Shape.SCISSORS});
         assertScoreBoard(scoreboard, 0, 0, 3);
     }
 
     @Test
     public void threeMixed() throws Exception {
-        when(guesser.nextGuess()).thenReturn(Shape.SCISSORS).thenReturn(Shape.SCISSORS).thenReturn(Shape.SCISSORS);
-        GameEngine game = new GameEngine(generateConsoleGenerating(Shape.SCISSORS, Shape.ROCK, Shape.PAPER), guesser);
-        Scoreboard scoreboard = game.play();
+        Scoreboard scoreboard = runGame(new Shape[]{Shape.SCISSORS, Shape.SCISSORS, Shape.SCISSORS}, new Shape[]{Shape.SCISSORS, Shape.ROCK, Shape.PAPER});
         assertScoreBoard(scoreboard, 1, 1, 1);
     }
 
     @Test
     public void testQuit() throws Exception {
-        when(guesser.nextGuess()).thenReturn(Shape.SCISSORS).thenReturn(Shape.SCISSORS).thenReturn(Shape.SCISSORS);
-        GameEngine game = new GameEngine(generateConsoleGenerating(Shape.SCISSORS, Shape.ROCK, Shape.QUIT), guesser);
-        Scoreboard scoreboard = game.play();
-        assertScoreBoard(scoreboard, 1, 0, 1);
+        Scoreboard scoreboard = runGame(new Shape[]{Shape.SCISSORS, Shape.SCISSORS, Shape.SCISSORS}, new Shape[]{Shape.SCISSORS, Shape.ROCK, Shape.QUIT});
         assertThat(scoreboard.numberOfRounds(), is(equalTo(2L)));
     }
 
