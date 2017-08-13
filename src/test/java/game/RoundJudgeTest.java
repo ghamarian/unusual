@@ -27,6 +27,8 @@ public class RoundJudgeTest {
     @Test
     public void givenTwoShape_ScoreShouldStayEqual() {
         assertThat(roundJudge.judge(Shape.PAPER, Shape.PAPER), is(equalTo(Winner.DRAW)));
+        assertThat(roundJudge.judge(Shape.SCISSORS, Shape.SCISSORS), is(equalTo(Winner.DRAW)));
+        assertThat(roundJudge.judge(Shape.ROCK, Shape.ROCK), is(equalTo(Winner.DRAW)));
     }
 
     @Test

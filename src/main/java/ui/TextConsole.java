@@ -94,7 +94,7 @@ public class TextConsole implements Console {
         }
 
         announceFinalScores(userScore, computerScore);
-        announceNumberOfRuncs(scoreboard.numberOfRounds());
+        announceNumberOfRounds(scoreboard.numberOfRounds());
     }
 
     @Override
@@ -102,20 +102,8 @@ public class TextConsole implements Console {
         out.println(String.format(SHOW_GUSSES_STATEMENT, userGuess, computerGuess));
     }
 
-    private void announceNumberOfRuncs(long numberOfTries) {
+    private void announceNumberOfRounds(long numberOfTries) {
         out.println(String.format(ANNOUNCE_NUMBER_OF_ROUNDS_STATEMENT, numberOfTries));
-    }
-
-    public void announceLostMatch() {
-        out.print(ANNOUNCE_LOSS_STATEMENT);
-    }
-
-    public void announceWonMatch() {
-        out.print(ANNOUNCE_WIN_STATEMENT);
-    }
-
-    public void announceDrawMatch() {
-        out.print(ANNOUNCE_DRAW_STATEMENT);
     }
 
     void announceFinalScores(long userScore, long computerScore) {
@@ -130,6 +118,19 @@ public class TextConsole implements Console {
         return scanner.next();
     }
 
+    private void announceLostMatch() {
+        out.print(ANNOUNCE_LOSS_STATEMENT);
+    }
+
+    private void announceWonMatch() {
+        out.print(ANNOUNCE_WIN_STATEMENT);
+    }
+
+    private void announceDrawMatch() {
+        out.print(ANNOUNCE_DRAW_STATEMENT);
+    }
+
+    //visible for test
     void promptNextInput() {
         out.println(String.format(PROMPT_ENTER_GUESS_STATEMENT, Arrays.toString(Shape.values())));
     }

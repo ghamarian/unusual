@@ -6,7 +6,7 @@ public class GameEngine {
     private final Guesser guesser;
     private final RoundJudge judge;
     private final Scoreboard scoreboard;
-    private int numberOfRounds;
+    private long numberOfRounds;
     private boolean gameOver;
 
     public GameEngine(Console console, Guesser guesser) {
@@ -16,20 +16,8 @@ public class GameEngine {
         scoreboard = new Scoreboard();
     }
 
-    private Shape askNextShape() {
-        return console.askNextShape();
-    }
-
-    private Shape guessShape() {
-        return guesser.nextGuess();
-    }
-
-    private Winner findWinner(Shape userShape, Shape computerShape) {
-        return judge.judge(userShape, computerShape);
-    }
-
-    private void announceLastRoundWinner(Winner winner) {
-        console.annouceLastRoundWinner(winner);
+    long getNumberOfRounds() {
+        return numberOfRounds;
     }
 
     public Scoreboard play() {
@@ -48,11 +36,34 @@ public class GameEngine {
             annouceGuesses(computerGuess, userGuess);
             final Winner winner = findWinner(userGuess, computerGuess);
             announceLastRoundWinner(winner);
-
-            scoreboard.saveRoundResult(winner);
+            saveRoundResult(winner);
         }
-        console.announceGameOver(scoreboard);
+        announceGameOver();
         return scoreboard;
+    }
+
+    private Shape askNextShape() {
+        return console.askNextShape();
+    }
+
+    private Shape guessShape() {
+        return guesser.nextGuess();
+    }
+
+    private Winner findWinner(Shape userShape, Shape computerShape) {
+        return judge.judge(userShape, computerShape);
+    }
+
+    private void announceLastRoundWinner(Winner winner) {
+        console.annouceLastRoundWinner(winner);
+    }
+
+    private void announceGameOver() {
+        console.announceGameOver(scoreboard);
+    }
+
+    private void saveRoundResult(Winner winner) {
+        scoreboard.saveRoundResult(winner);
     }
 
     private boolean gameOver() {

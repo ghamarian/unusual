@@ -12,7 +12,9 @@ import java.util.Arrays;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
+import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 import static org.mockito.Mockito.*;
@@ -25,11 +27,13 @@ public class GameEngineTest {
 
     private TextConsole console;
     private PrintStream out;
+    private ByteArrayOutputStream outputResult;
 
     @Before
     public void setUp() throws Exception {
         initMocks(this);
-        out = new PrintStream(new ByteArrayOutputStream());
+        outputResult = new ByteArrayOutputStream();
+        out = new PrintStream(outputResult);
     }
 
     private void createConsoleGenerating(Shape... shapes) {
@@ -46,50 +50,64 @@ public class GameEngineTest {
         }
     }
 
-    private Scoreboard runGame(Shape[] userInputs, Shape[] computerGuesses) {
+    private GameEngine createGame(Shape[] userInputs, Shape[] computerGuesses) {
         createConsoleGenerating(userInputs);
         mockGuesserWith(computerGuesses);
-        GameEngine game = new GameEngine(console, guesser);
-        return game.play();
+        return new GameEngine(console, guesser);
     }
 
     @Test
     public void threeWins() {
-        Scoreboard scoreboard = runGame(new Shape[]{Shape.PAPER, Shape.PAPER, Shape.PAPER}, new Shape[]{Shape.ROCK, Shape.ROCK, Shape.ROCK});
+        GameEngine game = createGame(new Shape[]{Shape.PAPER, Shape.PAPER, Shape.PAPER}, new Shape[]{Shape.ROCK, Shape.ROCK, Shape.ROCK});
+        Scoreboard scoreboard = game.play();
+
         assertScoreBoard(scoreboard, 3, 0, 0);
-        verify(console).announceWonMatch();
+        assertThat(outputResult.toString(), containsString("Congratulations, You won!"));
+        assertThat(game.getNumberOfRounds(), is(equalTo(scoreboard.numberOfRounds())));
         verify(console).announceGameOver(scoreboard);
     }
 
     @Test
     public void threeLosses() {
-        Scoreboard scoreboard = runGame(new Shape[]{Shape.SCISSORS, Shape.SCISSORS, Shape.SCISSORS}, new Shape[]{Shape.ROCK, Shape.ROCK, Shape.ROCK});
+        GameEngine game = createGame(new Shape[]{Shape.SCISSORS, Shape.SCISSORS, Shape.SCISSORS}, new Shape[]{Shape.ROCK, Shape.ROCK, Shape.ROCK});
+        Scoreboard scoreboard = game.play();
+
         assertScoreBoard(scoreboard, 0, 3, 0);
-        verify(console).announceLostMatch();
+        assertThat(game.getNumberOfRounds(), is(equalTo(scoreboard.numberOfRounds())));
+        assertThat(outputResult.toString(), containsString("Sorry, You lost! "));
         verify(console).announceGameOver(scoreboard);
     }
 
     @Test
     public void threeDraws() {
-        Scoreboard scoreboard = runGame(new Shape[]{Shape.SCISSORS, Shape.SCISSORS, Shape.SCISSORS}, new Shape[]{Shape.SCISSORS, Shape.SCISSORS, Shape.SCISSORS});
+        GameEngine game = createGame(new Shape[]{Shape.SCISSORS, Shape.SCISSORS, Shape.SCISSORS}, new Shape[]{Shape.SCISSORS, Shape.SCISSORS, Shape.SCISSORS});
+        Scoreboard scoreboard = game.play();
+
         assertScoreBoard(scoreboard, 0, 0, 3);
-        verify(console).announceDrawMatch();
+        assertThat(outputResult.toString(), containsString("It was a draw. "));
+        assertThat(game.getNumberOfRounds(), is(equalTo(scoreboard.numberOfRounds())));
         verify(console).announceGameOver(scoreboard);
     }
 
     @Test
     public void threeMixed() {
-        Scoreboard scoreboard = runGame(new Shape[]{Shape.SCISSORS, Shape.SCISSORS, Shape.SCISSORS}, new Shape[]{Shape.SCISSORS, Shape.ROCK, Shape.PAPER});
+        GameEngine game = createGame(new Shape[]{Shape.SCISSORS, Shape.SCISSORS, Shape.SCISSORS}, new Shape[]{Shape.SCISSORS, Shape.ROCK, Shape.PAPER});
+        Scoreboard scoreboard = game.play();
+
         assertScoreBoard(scoreboard, 1, 1, 1);
+        assertThat(game.getNumberOfRounds(), is(equalTo(scoreboard.numberOfRounds())));
         verify(console).announceGameOver(scoreboard);
     }
 
     @Test
     public void testQuit() {
-        Scoreboard scoreboard = runGame(new Shape[]{Shape.SCISSORS, Shape.QUIT, Shape.SCISSORS}, new Shape[]{Shape.SCISSORS, Shape.SCISSORS, Shape.SCISSORS});
+        GameEngine game = createGame(new Shape[]{Shape.SCISSORS, Shape.QUIT, Shape.SCISSORS}, new Shape[]{Shape.SCISSORS, Shape.SCISSORS, Shape.SCISSORS});
+        Scoreboard scoreboard = game.play();
+
         assertThat(scoreboard.numberOfRounds(), is(equalTo(1L)));
         verify(console, times(2)).askNextShape();
         verify(console).announceGameOver(scoreboard);
+        assertThat(game.getNumberOfRounds(), is(not(equalTo(scoreboard.numberOfRounds()))));
     }
 
 
