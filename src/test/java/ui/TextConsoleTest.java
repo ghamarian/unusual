@@ -19,6 +19,7 @@ import static org.mockito.Mockito.*;
 
 public class TextConsoleTest {
 
+    private static final String GAME_OVER = "Game over.";
     private PrintStream outSpy;
     private ByteArrayOutputStream outputResult;
     private TextConsole emptyInputConsole;
@@ -65,7 +66,7 @@ public class TextConsoleTest {
     public void askUserForNumberOfRounds_shouldKeepAskingUntilItIsANumber() {
         TextConsole console = spy(new TextConsole(new Scanner("a\nb\n3n\n3\n"), outSpy));
         assertThat(console.askUserForNumberOfRounds(), is(equalTo(3)));
-        assertThat(outputResult.toString(), containsString(TextConsole.ENTER_NUMERICAL_PROMPT));
+        assertThat(outputResult.toString(), containsString("Please enter a numerical value."));
     }
 
     @Test
@@ -81,8 +82,8 @@ public class TextConsoleTest {
         verify(emptyInputConsole).announceWonMatch();
         verify(emptyInputConsole, never()).announceDrawMatch();
         verify(emptyInputConsole, never()).announceLostMatch();
-        assertThat(outputResult.toString(), containsString(TextConsole.ANNOUNCE_GAME_OVER_STATEMENT));
-        assertThat(outputResult.toString(), containsString(TextConsole.ANNOUNCE_WIN_STATEMENT));
+        assertThat(outputResult.toString(), containsString(GAME_OVER));
+        assertThat(outputResult.toString(), containsString("Congratulations, You won! "));
     }
 
     @Test
@@ -92,8 +93,8 @@ public class TextConsoleTest {
         verify(emptyInputConsole).announceLostMatch();
         verify(emptyInputConsole, never()).announceWonMatch();
         verify(emptyInputConsole, never()).announceDrawMatch();
-        assertThat(outputResult.toString(), containsString(TextConsole.ANNOUNCE_GAME_OVER_STATEMENT));
-        assertThat(outputResult.toString(), containsString(TextConsole.ANNOUNCE_LOSS_STATEMENT));
+        assertThat(outputResult.toString(), containsString(GAME_OVER));
+        assertThat(outputResult.toString(), containsString("Sorry, You lost! "));
     }
 
     @Test
@@ -103,8 +104,8 @@ public class TextConsoleTest {
         verify(emptyInputConsole).announceDrawMatch();
         verify(emptyInputConsole, never()).announceLostMatch();
         verify(emptyInputConsole, never()).announceWonMatch();
-        assertThat(outputResult.toString(), containsString(TextConsole.ANNOUNCE_GAME_OVER_STATEMENT));
-        assertThat(outputResult.toString(), containsString(TextConsole.ANNOUNCE_DRAW_STATEMENT));
+        assertThat(outputResult.toString(), containsString(GAME_OVER));
+        assertThat(outputResult.toString(), containsString("It was a draw. "));
     }
 
     @Test
@@ -122,7 +123,7 @@ public class TextConsoleTest {
     @Test
     public void annouceLastRoundWinner_worksWhenDraw() throws Exception {
         emptyInputConsole.annouceLastRoundWinner(Winner.DRAW);
-        assertThat(outputResult.toString(), containsString(TextConsole.ANNOUNCE_ROUND_DRAW_RESULT));
+        assertThat(outputResult.toString(),containsString("Last round was a draw!"));
     }
 
     @Test

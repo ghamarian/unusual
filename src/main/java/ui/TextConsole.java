@@ -13,19 +13,19 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class TextConsole implements Console {
+
     private static final String HOW_MANY_ROUNDS_PROMPT = "Please enter how many rounds would you like to play?";
     private static final String SHOW_GUSSES_STATEMENT = "Your guess %s vs computer guess %s";
     private static final String FINAL_SCORE_STATEMENT = "Your score %s vs %s.";
     private static final String PROMPT_ENTER_GUESS_STATEMENT = "Please enter your guess %s: ";
     private static final String ANNOUNCE_NUMBER_OF_ROUNDS_STATEMENT = " Out of the total number of %s rounds.";
     private static final String ANNOUNCE_ROUND_WON_RESULT = "%s won the last round.";
-
-    static final String ANNOUNCE_ROUND_DRAW_RESULT = "Last round was a draw!";
-    static final String ANNOUNCE_DRAW_STATEMENT = "It was a draw. ";
-    static final String ANNOUNCE_WIN_STATEMENT = "Congratulations, You won! ";
-    static final String ANNOUNCE_LOSS_STATEMENT = "Sorry, You lost! ";
-    static final String ANNOUNCE_GAME_OVER_STATEMENT = "Game over.";
-    static final String ENTER_NUMERICAL_PROMPT = "Please enter a numerical value.";
+    private static final String ANNOUNCE_GAME_OVER_STATEMENT = "Game over.";
+    private static final String ANNOUNCE_ROUND_DRAW_RESULT = "Last round was a draw!";
+    private static final String ANNOUNCE_DRAW_STATEMENT = "It was a draw. ";
+    private static final String ANNOUNCE_WIN_STATEMENT = "Congratulations, You won! ";
+    private static final String ANNOUNCE_LOSS_STATEMENT = "Sorry, You lost! ";
+    private static final String ENTER_NUMERICAL_PROMPT = "Please enter a numerical value.";
 
     private final PrintStream out;
     private Scanner scanner;
