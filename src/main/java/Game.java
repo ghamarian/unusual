@@ -1,7 +1,6 @@
-package gameInterface;
-
 import game.GameEngine;
 import strategy.RandomGuesser;
+import ui.TextConsole;
 
 import java.util.Scanner;
 

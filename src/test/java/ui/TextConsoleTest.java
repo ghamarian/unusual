@@ -1,4 +1,4 @@
-package gameInterface;
+package ui;
 
 import game.Console;
 import game.Scoreboard;

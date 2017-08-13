@@ -1,6 +1,6 @@
 package game;
 
-import gameInterface.TextConsole;
+import ui.TextConsole;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;

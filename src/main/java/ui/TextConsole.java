@@ -1,4 +1,4 @@
-package gameInterface;
+package ui;
 
 import game.Console;
 import game.Winner;
@@ -33,7 +33,7 @@ public class TextConsole implements Console {
     }
 
     private void promptNextInput() {
-        System.out.println("Please enter your guess: " + Arrays.toString(Shape.values()));
+        System.out.println(String.format("Please enter your guess %s: ", Arrays.toString(Shape.values())));
     }
 
     @Override
