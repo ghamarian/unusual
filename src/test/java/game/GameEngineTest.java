@@ -13,9 +13,7 @@ import java.util.stream.Collectors;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
-import static org.mockito.Mockito.spy;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import static org.mockito.MockitoAnnotations.initMocks;
 
 public class GameEngineTest {
@@ -84,9 +82,10 @@ public class GameEngineTest {
 
     @Test
     public void testQuit() throws Exception {
-        Scoreboard scoreboard = runGame(new Shape[]{Shape.SCISSORS, Shape.SCISSORS, Shape.SCISSORS}, new Shape[]{Shape.SCISSORS, Shape.ROCK, Shape.QUIT});
-        assertThat(scoreboard.numberOfRounds(), is(equalTo(2L)));
-//        verify(console).announceGameOver(scoreboard);
+        Scoreboard scoreboard = runGame(new Shape[]{Shape.SCISSORS, Shape.QUIT, Shape.SCISSORS}, new Shape[]{Shape.SCISSORS, Shape.SCISSORS, Shape.SCISSORS});
+        assertThat(scoreboard.numberOfRounds(), is(equalTo(1L)));
+        verify(console, times(2)).askNextShape();
+        verify(console).announceGameOver(scoreboard);
     }
 
 
