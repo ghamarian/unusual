@@ -50,7 +50,7 @@ public class GameEngineTest {
     }
 
     @Test
-    public void threeWins() throws Exception {
+    public void threeWins() {
         Scoreboard scoreboard = runGame(new Shape[]{Shape.PAPER, Shape.PAPER, Shape.PAPER}, new Shape[]{Shape.ROCK, Shape.ROCK, Shape.ROCK});
         assertScoreBoard(scoreboard, 3, 0, 0);
         verify(console).announceWonMatch();
@@ -58,7 +58,7 @@ public class GameEngineTest {
     }
 
     @Test
-    public void threeLosses() throws Exception {
+    public void threeLosses() {
         Scoreboard scoreboard = runGame(new Shape[]{Shape.SCISSORS, Shape.SCISSORS, Shape.SCISSORS}, new Shape[]{Shape.ROCK, Shape.ROCK, Shape.ROCK});
         assertScoreBoard(scoreboard, 0, 3, 0);
         verify(console).announceLostMatch();
@@ -66,7 +66,7 @@ public class GameEngineTest {
     }
 
     @Test
-    public void threeDraws() throws Exception {
+    public void threeDraws() {
         Scoreboard scoreboard = runGame(new Shape[]{Shape.SCISSORS, Shape.SCISSORS, Shape.SCISSORS}, new Shape[]{Shape.SCISSORS, Shape.SCISSORS, Shape.SCISSORS});
         assertScoreBoard(scoreboard, 0, 0, 3);
         verify(console).announceDrawMatch();
@@ -74,14 +74,14 @@ public class GameEngineTest {
     }
 
     @Test
-    public void threeMixed() throws Exception {
+    public void threeMixed() {
         Scoreboard scoreboard = runGame(new Shape[]{Shape.SCISSORS, Shape.SCISSORS, Shape.SCISSORS}, new Shape[]{Shape.SCISSORS, Shape.ROCK, Shape.PAPER});
         assertScoreBoard(scoreboard, 1, 1, 1);
         verify(console).announceGameOver(scoreboard);
     }
 
     @Test
-    public void testQuit() throws Exception {
+    public void testQuit() {
         Scoreboard scoreboard = runGame(new Shape[]{Shape.SCISSORS, Shape.QUIT, Shape.SCISSORS}, new Shape[]{Shape.SCISSORS, Shape.SCISSORS, Shape.SCISSORS});
         assertThat(scoreboard.numberOfRounds(), is(equalTo(1L)));
         verify(console, times(2)).askNextShape();

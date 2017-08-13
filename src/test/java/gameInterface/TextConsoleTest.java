@@ -16,21 +16,21 @@ import static org.mockito.Mockito.*;
 public class TextConsoleTest {
 
     @Test
-    public void askNextShape_ShouldRepeatUntilAValidShape() throws Exception {
+    public void askNextShape_ShouldRepeatUntilAValidShape() {
        Console console = new TextConsole(new Scanner("aa\nabcd\nkashk\nrock\n"));
        final Shape shape = console.askNextShape();
         assertThat(shape, is(equalTo(Shape.ROCK)));
     }
 
     @Test
-    public void askNextChape_shouldMatchExactWord() throws Exception {
+    public void askNextChape_shouldMatchExactWord() {
         Console console = new TextConsole(new Scanner("asrocks\npaper\n"));
         final Shape shape = console.askNextShape();
         assertThat(shape, is(equalTo(Shape.PAPER)));
     }
 
     @Test
-    public void GivenCorrectShape_askNextItShouldReturnThatShape() throws Exception {
+    public void GivenCorrectShape_askNextItShouldReturnThatShape() {
         for (Shape shape : Shape.values()) {
             Console console = new TextConsole(new Scanner(shape.toString()));
             assertThat(shape, is(equalTo(console.askNextShape())));
@@ -46,7 +46,7 @@ public class TextConsoleTest {
     }
 
     @Test
-    public void askUserForNumberOfRounds_shouldKeepAskingUntilItIsANumber() throws Exception {
+    public void askUserForNumberOfRounds_shouldKeepAskingUntilItIsANumber() {
         Console console = new TextConsole(new Scanner("a\nb\n3n\n3\n"));
         assertThat(console.askUserForNumberOfRounds(), is(equalTo(3)));
     }
@@ -58,7 +58,7 @@ public class TextConsoleTest {
     }
 
     @Test
-    public void announceGameOver_wonGameShouldCallAnnounceWonMatch() throws Exception {
+    public void announceGameOver_wonGameShouldCallAnnounceWonMatch() {
         TextConsole console = spy(new TextConsole(new Scanner("")));
         Scoreboard scoreboard = new Scoreboard();
         scoreboard.saveRoundResult(Winner.USER);
@@ -69,7 +69,7 @@ public class TextConsoleTest {
     }
 
     @Test
-    public void announceGameOver_wonGameShouldCallAnnounceLostMatch() throws Exception {
+    public void announceGameOver_wonGameShouldCallAnnounceLostMatch() {
         TextConsole console = spy(new TextConsole(new Scanner("")));
         Scoreboard scoreboard = new Scoreboard();
         scoreboard.saveRoundResult(Winner.COMPUTER);
@@ -80,7 +80,7 @@ public class TextConsoleTest {
     }
 
     @Test
-    public void announceGameOver_wonGameShouldCallAnnounceDrawMatch() throws Exception {
+    public void announceGameOver_wonGameShouldCallAnnounceDrawMatch() {
         TextConsole console = spy(new TextConsole(new Scanner("")));
         Scoreboard scoreboard = new Scoreboard();
         scoreboard.saveRoundResult(Winner.DRAW);

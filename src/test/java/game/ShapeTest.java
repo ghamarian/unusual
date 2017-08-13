@@ -6,7 +6,7 @@ import static org.junit.Assert.assertFalse;
 
 public class ShapeTest {
     @Test
-    public void shapes() throws Exception {
+    public void shapes() {
         assertFalse(Shape.shapes().contains(Shape.QUIT));
     }
 }

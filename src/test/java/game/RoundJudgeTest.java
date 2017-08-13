@@ -25,24 +25,24 @@ public class RoundJudgeTest {
     }
 
     @Test
-    public void givenTwoShape_ScoreShouldStayEqual() throws Exception {
+    public void givenTwoShape_ScoreShouldStayEqual() {
         assertThat(roundJudge.judge(Shape.PAPER, Shape.PAPER), is(equalTo(Winner.DRAW)));
     }
 
     @Test
-    public void givenPaperAndScissor_ScissorShouldWin() throws Exception {
+    public void givenPaperAndScissor_ScissorShouldWin() {
         assertUserLoses(Shape.PAPER, Shape.SCISSORS);
         assertUserWins(Shape.SCISSORS, Shape.PAPER);
     }
 
     @Test
-    public void givenPaperAndRock_PaperShouldWin() throws Exception {
+    public void givenPaperAndRock_PaperShouldWin() {
         assertUserWins(Shape.PAPER, Shape.ROCK);
         assertUserLoses(Shape.ROCK, Shape.PAPER);
     }
 
     @Test
-    public void givenScissorAndRock_RockShouldWin() throws Exception {
+    public void givenScissorAndRock_RockShouldWin() {
         assertUserLoses(Shape.SCISSORS, Shape.ROCK);
         assertUserWins(Shape.ROCK, Shape.SCISSORS);
     }
