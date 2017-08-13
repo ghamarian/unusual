@@ -101,15 +101,15 @@ public class TextConsole implements Console {
         System.out.println(String.format(" Out of the total number of %s rounds.", numberOfTries));
     }
 
-    protected void announceLostMatch() {
+    public void announceLostMatch() {
         System.out.print("Sorry, You lost! ");
     }
 
-    protected void announceWonMatch() {
+    public void announceWonMatch() {
         System.out.print("Congratulations, You won! ");
     }
 
-    protected void announceDrawMatch() {
+    public void announceDrawMatch() {
         System.out.print("It was a draw.");
     }
 
