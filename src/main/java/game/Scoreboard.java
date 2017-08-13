@@ -27,7 +27,7 @@ public class Scoreboard {
         return countScore(Winner.COMPUTER);
     }
 
-    long getDraws() {
+    long getDrawScore() {
         return countScore(Winner.DRAW);
     }
 
