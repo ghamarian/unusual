@@ -107,6 +107,36 @@ public class TextConsoleTest {
         assertThat(outputResult.toString(), containsString(TextConsole.ANNOUNCE_DRAW_STATEMENT));
     }
 
+    @Test
+    public void annouceLastRoundWinner_worksWhenUserIsWinner() throws Exception {
+        emptyInputConsole.annouceLastRoundWinner(Winner.USER);
+        assertThat(outputResult.toString(), containsString("You won the last round."));
+    }
+
+    @Test
+    public void annouceLastRoundWinner_worksWhenComputerIsWinner() throws Exception {
+        emptyInputConsole.annouceLastRoundWinner(Winner.COMPUTER);
+        assertThat(outputResult.toString(), containsString("Computer won the last round."));
+    }
+
+    @Test
+    public void annouceLastRoundWinner_worksWhenDraw() throws Exception {
+        emptyInputConsole.annouceLastRoundWinner(Winner.DRAW);
+        assertThat(outputResult.toString(), containsString(TextConsole.ANNOUNCE_ROUND_DRAW_RESULT));
+    }
+
+    @Test
+    public void annouceGuesses_shouldWork() throws Exception {
+        emptyInputConsole.announceGuesses(Shape.ROCK, Shape.PAPER);
+        assertThat(outputResult.toString(), containsString("Your guess ROCK vs computer guess PAPER"));
+    }
+
+    @Test
+    public void announceFinalScors() throws Exception {
+        emptyInputConsole.announceFinalScores(3, 2);
+        assertThat(outputResult.toString(), containsString("Your score 3 vs 2."));
+    }
+
     private Scoreboard getScoreboardFor(Winner... winners) {
         Scoreboard scoreboard = new Scoreboard();
         for (Winner winner : winners) {

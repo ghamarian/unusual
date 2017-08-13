@@ -19,8 +19,8 @@ public class TextConsole implements Console {
     private static final String PROMPT_ENTER_GUESS_STATEMENT = "Please enter your guess %s: ";
     private static final String ANNOUNCE_NUMBER_OF_ROUNDS_STATEMENT = " Out of the total number of %s rounds.";
     private static final String ANNOUNCE_ROUND_WON_RESULT = "%s won the last round.";
-    private static final String ANNOUNCE_ROUND_DRAW_RESULT = "Last round was a draw!";
 
+    static final String ANNOUNCE_ROUND_DRAW_RESULT = "Last round was a draw!";
     static final String ANNOUNCE_DRAW_STATEMENT = "It was a draw. ";
     static final String ANNOUNCE_WIN_STATEMENT = "Congratulations, You won! ";
     static final String ANNOUNCE_LOSS_STATEMENT = "Sorry, You lost! ";
@@ -118,7 +118,7 @@ public class TextConsole implements Console {
         out.print(ANNOUNCE_DRAW_STATEMENT);
     }
 
-    private void announceFinalScores(long userScore, long computerScore) {
+    void announceFinalScores(long userScore, long computerScore) {
         out.print(String.format(FINAL_SCORE_STATEMENT, userScore, computerScore));
     }
 
